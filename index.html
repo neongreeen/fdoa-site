@@ -2,23 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FDOA – FIVESTAR Design Office &amp; Associates</title>
-  <meta
-    name="description"
-    content="FDOA is a design practice by Yoshiaki Yamaguchi based in Fukuoka, Japan. This is a simple temporary home while the full portfolio is being prepared."
-  />
+  <meta name="description" content="FDOA is the design office FIVESTAR Design Office & Associates. Temporary home while the full portfolio site is prepared." />
+
   <style>
     :root {
-      --bg-top: #f7eee4;
-      --bg-mid: #f2e3d4;
-      --bg-bottom: #e9d7c5;
-      --text-main: #2b2621;
-      --text-muted: #7a6f65;
-      --accent: #b46b3c;
-      --border-soft: rgba(0, 0, 0, 0.04);
-      --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.12);
-      --radius: 18px;
+      --bg-base: #05070d;
+      --bg-glow: rgba(80, 96, 140, 0.65);   /* 以前より少しだけ薄め */
+      --bg-glow-soft: rgba(14, 19, 40, 0.7);
+      --card-bg: rgba(10, 12, 22, 0.96);
+      --fg: #f5f5f5;
+      --muted: #a0a3ad;
+      --accent: #f5d27a;
+      --radius-lg: 18px;
+      --shadow-soft: 0 28px 70px rgba(0, 0, 0, 0.65);
       --max-width: 960px;
     }
 
@@ -34,177 +32,137 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Helvetica Neue", Arial, sans-serif;
-      color: var(--text-main);
-      background: linear-gradient(
-        180deg,
-        var(--bg-top) 0%,
-        var(--bg-mid) 45%,
-        var(--bg-bottom) 100%
-      );
+      margin: 0;
+      font-family: "Oriya MN", -apple-system, system-ui, BlinkMacSystemFont,
+        "SF Pro Text", sans-serif;
+      color: var(--fg);
+      background:
+        radial-gradient(circle at 0% 0%, var(--bg-glow) 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, var(--bg-glow-soft) 0, transparent 60%),
+        var(--bg-base);
       display: flex;
-      justify-content: center;
       align-items: center;
-      padding: 32px 16px;
+      justify-content: center;
+      padding: 40px 20px;
     }
 
-    .page {
+    main {
       width: 100%;
       max-width: var(--max-width);
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(12px);
-      border-radius: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow-soft);
-      border: 1px solid var(--border-soft);
-      padding: 40px 38px 34px;
+      padding: 32px 32px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
-    .header-line {
-      display: flex;
-      justify-content: space-between;
+    .badge {
+      display: inline-flex;
       align-items: center;
-      margin-bottom: 32px;
+      gap: 8px;
       font-size: 11px;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.25);
+      margin-bottom: 24px;
     }
 
-    .header-line span:last-child {
-      opacity: 0.8;
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(245, 210, 122, 0.9);
     }
 
-    .hero {
-      display: flex;
-      gap: 40px;
+    .title-block {
+      margin-bottom: 28px;
     }
 
-    .hero-main {
-      flex: 1.2;
-    }
-
-    .hero-title {
-      font-size: 2.9rem; /* ← ここを少し小さくした */
-      letter-spacing: 0.28em;
+    .title-main {
+      font-size: clamp(40px, 6vw, 56px);
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
 
-    .hero-subline {
+    .title-sub {
       font-size: 11px;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 26px;
+      color: var(--muted);
     }
 
-    .hero-text {
+    .body-text {
+      margin-top: 26px;
+      max-width: 520px;
       font-size: 13px;
       line-height: 1.7;
-      color: var(--text-muted);
-      max-width: 38rem;
-      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    .body-text p + p {
+      margin-top: 10px;
     }
 
     .note {
-      font-size: 11px;
-      color: var(--text-muted);
-      opacity: 0.85;
-    }
-
-    .hero-side {
-      flex: 0.9;
-      font-size: 11px;
-      color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .section-title {
+      margin-top: 22px;
       font-size: 11px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      margin-bottom: 8px;
-      color: var(--text-main);
+      color: rgba(245, 245, 245, 0.6);
     }
 
-    .temp-box {
-      margin-top: 40px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border-soft);
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 16px;
-      }
-
-      .page {
+    @media (max-width: 640px) {
+      .card {
         padding: 24px 20px 22px;
       }
 
-      .hero {
-        flex-direction: column;
-        gap: 24px;
-      }
-
-      .hero-title {
-        font-size: 2.3rem;
-        letter-spacing: 0.24em;
+      .body-text {
+        max-width: none;
       }
     }
   </style>
 </head>
+
 <body>
-  <main class="page">
-    <header class="header-line">
-      <span>FDOA — FIVESTAR Design Office &amp; Associates</span>
-      <span>Fukuoka, Japan</span>
-    </header>
+  <main>
+    <section class="card">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>FIVESTAR Design Office &amp; Associates</span>
+      </div>
 
-    <section class="hero">
-      <div class="hero-main">
-        <h1 class="hero-title">FDOA</h1>
-        <div class="hero-subline">
-          INTERIOR / PRODUCT / ARCHITECTURE
+      <div class="title-block">
+        <div class="title-main">FDOA</div>
+        <div class="title-sub">
+          INTERIOR &nbsp;/&nbsp; PRODUCT &nbsp;/&nbsp; ARCHITECTURE
         </div>
+      </div>
 
-        <p class="hero-text">
-          FDOA is the design practice of Yoshiaki Yamaguchi based in Fukuoka,
-          Japan. We work across spaces, furniture and objects, focusing on
-          quiet, long-lasting value rather than trends.
+      <div class="body-text">
+        <p>
+          FDOA is an independent design office working across interior, product,
+          and architectural projects.
         </p>
-        <p class="hero-text">
-          This site is a simple temporary home while the full portfolio is being
-          prepared.
-        </p>
-
-        <p class="note">
-          A more complete FDOA site will follow soon.
+        <p>
+          Selected interior works are currently being prepared for this site.
+          This is a temporary home page, and a full portfolio website will be
+          released soon.
         </p>
       </div>
 
-      <aside class="hero-side">
-        <div>
-          <div class="section-title">Current focus</div>
-          <ul>
-            <li>Shop &amp; hospitality interiors</li>
-            <li>Furniture &amp; product design (FDOP)</li>
-            <li>Architectural collaboration projects</li>
-          </ul>
-        </div>
-      </aside>
+      <div class="note">
+        Temporary site &mdash; official version coming soon
+      </div>
     </section>
-
-    <div class="temp-box">
-      Temporary home for FDOA – full site coming soon
-    </div>
   </main>
 </body>
 </html>
