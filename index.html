@@ -1,94 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIVESTAR DESIGN OFFICE & ASSOCIATES - TEMPORARY HOME</title>
-    <style>
-        /* スタイルは必要に応じて調整してください */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4; /* 少し薄いグラデーションのイメージで薄いグレー */
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            max-width: 960px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 5px;
-        }
-        header p.tagline {
-            font-size: 1.2em;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .content {
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-        .content p {
-            margin-bottom: 15px;
-        }
-        .logo-fdoa {
-            font-size: 1.5em;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-        }
-        footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #999;
-        }
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #007bff;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FDOA – FIVESTAR Design Office &amp; Associates</title>
+  <meta
+    name="description"
+    content="FDOA is a design practice by Yoshiaki Yamaguchi based in Fukuoka, Japan. This is a simple temporary home while the full portfolio is being prepared."
+  />
+  <style>
+    :root {
+      --bg-top: #f7eee4;
+      --bg-mid: #f2e3d4;
+      --bg-bottom: #e9d7c5;
+      --text-main: #2b2621;
+      --text-muted: #7a6f65;
+      --accent: #b46b3c;
+      --border-soft: rgba(0, 0, 0, 0.04);
+      --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.12);
+      --radius: 18px;
+      --max-width: 960px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background: linear-gradient(
+        180deg,
+        var(--bg-top) 0%,
+        var(--bg-mid) 45%,
+        var(--bg-bottom) 100%
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 16px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: var(--max-width);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 30px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+      padding: 40px 38px 34px;
+    }
+
+    .header-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .header-line span:last-child {
+      opacity: 0.8;
+    }
+
+    .hero {
+      display: flex;
+      gap: 40px;
+    }
+
+    .hero-main {
+      flex: 1.2;
+    }
+
+    .hero-title {
+      font-size: 2.9rem; /* ← ここを少し小さくした */
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .hero-subline {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 26px;
+    }
+
+    .hero-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 38rem;
+      margin-bottom: 16px;
+    }
+
+    .note {
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0.85;
+    }
+
+    .hero-side {
+      flex: 0.9;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .temp-box {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 16px;
+      }
+
+      .page {
+        padding: 24px 20px 22px;
+      }
+
+      .hero {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .hero-title {
+        font-size: 2.3rem;
+        letter-spacing: 0.24em;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <span class="logo-fdoa">FDOA</span>
-            <h1>FIVESTAR DESIGN OFFICE & ASSOCIATES</h1>
-            <p class="tagline">INTERIOR / PRODUCT / ARCHITECTURE</p>
-        </header>
+  <main class="page">
+    <header class="header-line">
+      <span>FDOA — FIVESTAR Design Office &amp; Associates</span>
+      <span>Fukuoka, Japan</span>
+    </header>
 
-        <hr>
-
-        <div class="content">
-            <p>
-                **FDOA** is an independent design office working across interior, product and architectural projects from **Fukuoka, Japan**.
-            </p>
-
-            <p>
-                The portfolio and project details are currently being prepared. This page is a simple temporary home while the full site is designed and built.
-            </p>
-            <p>
-                **A more complete FDOA site will be released soon.**
-            </p>
-
-            <nav>
-                <a href="https://fdoa.jp">fdoa.jp</a> |
-                <a href="#">GitHub</a>
-            </nav>
+    <section class="hero">
+      <div class="hero-main">
+        <h1 class="hero-title">FDOA</h1>
+        <div class="hero-subline">
+          INTERIOR / PRODUCT / ARCHITECTURE
         </div>
 
-        <hr>
+        <p class="hero-text">
+          FDOA is the design practice of Yoshiaki Yamaguchi based in Fukuoka,
+          Japan. We work across spaces, furniture and objects, focusing on
+          quiet, long-lasting value rather than trends.
+        </p>
+        <p class="hero-text">
+          This site is a simple temporary home while the full portfolio is being
+          prepared.
+        </p>
 
-        <footer>
-            <p>TEMPORARY HOME FOR IDOA</p>
-            <p>&copy; 2025 FDOA. All Rights Reserved.</p>
-        </footer>
+        <p class="note">
+          A more complete FDOA site will follow soon.
+        </p>
+      </div>
+
+      <aside class="hero-side">
+        <div>
+          <div class="section-title">Current focus</div>
+          <ul>
+            <li>Shop &amp; hospitality interiors</li>
+            <li>Furniture &amp; product design (FDOP)</li>
+            <li>Architectural collaboration projects</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <div class="temp-box">
+      Temporary home for FDOA – full site coming soon
     </div>
+  </main>
 </body>
 </html>
