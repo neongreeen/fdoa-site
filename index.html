@@ -1,214 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FDOA – FIVESTAR Design Office & Associates</title>
-  <meta name="description" content="FDOA is a design office working across interior, product and architecture. This is a temporary home while the full website is being prepared." />
+<main class="layout">
+  <header class="hero">
+    <div class="hero-main">
+      <h1 class="logo">FDOA</h1>
+      <p class="tagline">INTERIOR / PRODUCT / ARCHITECTURE</p>
 
-  <style>
-    :root {
-      --bg: #0f1115;
-      --fg: #f5f5f5;
-      --muted: #a0a4b0;
-      --accent: #ffd65d;
-      --border: #252835;
-      --radius: 18px;
-      --max-width: 960px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Helvetica Neue", Arial, sans-serif;
-      color: var(--fg);
-      background:
-        radial-gradient(circle at top, #181b23 0, #05060a 55%, #020306 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .frame {
-      width: 100%;
-      max-width: var(--max-width);
-      border-radius: 28px;
-      border: 1px solid var(--border);
-      background: linear-gradient(145deg, #11131a, #06070b);
-      box-shadow:
-        0 24px 80px rgba(0, 0, 0, 0.65),
-        0 0 0 1px rgba(255, 255, 255, 0.02);
-      padding: 32px 28px 28px;
-    }
-
-    @media (min-width: 720px) {
-      .frame {
-        padding: 40px 40px 34px;
-      }
-    }
-
-    .row-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .logo-mark {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .logo-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 16px rgba(255, 214, 93, 0.75);
-    }
-
-    .badge-temp {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.01);
-      backdrop-filter: blur(16px);
-      white-space: nowrap;
-    }
-
-    .hero-title {
-      font-size: clamp(36px, 5vw, 48px);
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .hero-sub {
-      font-size: 11px;
-      letter-spacing: 0.36em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
-    .hero-sub span + span::before {
-      content: " / ";
-      opacity: 0.5;
-      margin: 0 4px;
-    }
-
-    .hero-body {
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--muted);
-      max-width: 520px;
-    }
-
-    .hero-body strong {
-      color: var(--fg);
-      font-weight: 500;
-    }
-
-    .panel {
-      margin-top: 32px;
-      border-radius: var(--radius);
-      border: 1px dashed rgba(160, 164, 176, 0.35);
-      padding: 16px 16px 14px;
-      font-size: 12px;
-      color: var(--muted);
-      background: radial-gradient(circle at top left, rgba(255, 214, 93, 0.06), transparent 55%);
-    }
-
-    .panel-title {
-      font-size: 11px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .panel p + p {
-      margin-top: 4px;
-    }
-
-    .footer {
-      margin-top: 26px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 11px;
-      color: rgba(144, 148, 160, 0.9);
-    }
-
-    @media (max-width: 520px) {
-      .footer {
-        flex-direction: column;
-      }
-    }
-  </style>
-</head>
-<body>
-  <main class="frame" aria-label="FDOA temporary site">
-    <header class="row-top">
-      <div class="logo-mark">
-        <span class="logo-dot" aria-hidden="true"></span>
-        <span>FIVESTAR Design Office &amp; Associates</span>
-      </div>
-      <div class="badge-temp">Temporary site</div>
-    </header>
-
-    <section aria-labelledby="hero-title">
-      <h1 id="hero-title" class="hero-title">FDOA</h1>
-      <div class="hero-sub">
-        <span>INTERIOR</span>
-        <span>PRODUCT</span>
-        <span>ARCHITECTURE</span>
-      </div>
-
-      <p class="hero-body">
-        <strong>FDOA</strong> is an independent design office based in Japan,
-        working across interior spaces, furniture, objects and architectural
-        collaboration projects.  
-        We focus on calm, long-lasting value rather than short-term trends.
+      <p class="lead">
+        FDOA is the design practice of Yoshiaki Yamaguchi based in Fukuoka, Japan.
+        We work on interior, furniture and product, and architectural collaboration projects.
       </p>
 
-      <div class="panel" aria-label="Website status">
-        <div class="panel-title">Website status</div>
-        <p>The full portfolio site is currently in preparation.</p>
-        <p>
-          This page is a simple temporary home.  
-          A new, fully detailed website will be released on this domain soon.
-        </p>
-      </div>
-    </section>
+      <p class="note">
+        This is a simple temporary site while the full portfolio is being prepared.
+        The official website will be released soon.
+      </p>
+    </div>
+  </header>
 
-    <footer class="footer">
-      <span>© FDOA – FIVESTAR Design Office &amp; Associates</span>
-      <span>Official site coming soon</span>
-    </footer>
-  </main>
-</body>
-</html>
+  <section class="section">
+    <h2 class="section-title">Works</h2>
+    <p class="section-body">Selected projects will be published here soon.</p>
+  </section>
+</main>
