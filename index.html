@@ -1,168 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FDOA – FIVESTAR Design Office &amp; Associates</title>
-  <meta name="description" content="FDOA is the design office FIVESTAR Design Office & Associates. Temporary home while the full portfolio site is prepared." />
-
-  <style>
-    :root {
-      --bg-base: #05070d;
-      --bg-glow: rgba(80, 96, 140, 0.65);   /* 以前より少しだけ薄め */
-      --bg-glow-soft: rgba(14, 19, 40, 0.7);
-      --card-bg: rgba(10, 12, 22, 0.96);
-      --fg: #f5f5f5;
-      --muted: #a0a3ad;
-      --accent: #f5d27a;
-      --radius-lg: 18px;
-      --shadow-soft: 0 28px 70px rgba(0, 0, 0, 0.65);
-      --max-width: 960px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      height: 100%;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Oriya MN", -apple-system, system-ui, BlinkMacSystemFont,
-        "SF Pro Text", sans-serif;
-      color: var(--fg);
-      background:
-        radial-gradient(circle at 0% 0%, var(--bg-glow) 0, transparent 55%),
-        radial-gradient(circle at 100% 100%, var(--bg-glow-soft) 0, transparent 60%),
-        var(--bg-base);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-    }
-
-    main {
-      width: 100%;
-      max-width: var(--max-width);
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-      padding: 32px 32px 28px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(0, 0, 0, 0.25);
-      margin-bottom: 24px;
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 12px rgba(245, 210, 122, 0.9);
-    }
-
-    .title-block {
-      margin-bottom: 28px;
-    }
-
-    .title-main {
-      font-size: clamp(40px, 6vw, 56px);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .title-sub {
-      font-size: 11px;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .body-text {
-      margin-top: 26px;
-      max-width: 520px;
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    .body-text p + p {
-      margin-top: 10px;
-    }
-
-    .note {
-      margin-top: 22px;
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(245, 245, 245, 0.6);
-    }
-
-    @media (max-width: 640px) {
-      .card {
-        padding: 24px 20px 22px;
-      }
-
-      .body-text {
-        max-width: none;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIVESTAR DESIGN OFFICE & ASSOCIATES - TEMPORARY HOME</title>
+    <style>
+        /* スタイルは必要に応じて調整してください */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* 少し薄いグラデーションのイメージで薄いグレー */
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 960px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        header p.tagline {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .content p {
+            margin-bottom: 15px;
+        }
+        .logo-fdoa {
+            font-size: 1.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #999;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
 </head>
-
 <body>
-  <main>
-    <section class="card">
-      <div class="badge">
-        <span class="badge-dot"></span>
-        <span>FIVESTAR Design Office &amp; Associates</span>
-      </div>
+    <div class="container">
+        <header>
+            <span class="logo-fdoa">FDOA</span>
+            <h1>FIVESTAR DESIGN OFFICE & ASSOCIATES</h1>
+            <p class="tagline">INTERIOR / PRODUCT / ARCHITECTURE</p>
+        </header>
 
-      <div class="title-block">
-        <div class="title-main">FDOA</div>
-        <div class="title-sub">
-          INTERIOR &nbsp;/&nbsp; PRODUCT &nbsp;/&nbsp; ARCHITECTURE
+        <hr>
+
+        <div class="content">
+            <p>
+                **FDOA** is an independent design office working across interior, product and architectural projects from **Fukuoka, Japan**.
+            </p>
+
+            <p>
+                The portfolio and project details are currently being prepared. This page is a simple temporary home while the full site is designed and built.
+            </p>
+            <p>
+                **A more complete FDOA site will be released soon.**
+            </p>
+
+            <nav>
+                <a href="https://fdoa.jp">fdoa.jp</a> |
+                <a href="#">GitHub</a>
+            </nav>
         </div>
-      </div>
 
-      <div class="body-text">
-        <p>
-          FDOA is an independent design office working across interior, product,
-          and architectural projects.
-        </p>
-        <p>
-          Selected interior works are currently being prepared for this site.
-          This is a temporary home page, and a full portfolio website will be
-          released soon.
-        </p>
-      </div>
+        <hr>
 
-      <div class="note">
-        Temporary site &mdash; official version coming soon
-      </div>
-    </section>
-  </main>
+        <footer>
+            <p>TEMPORARY HOME FOR IDOA</p>
+            <p>&copy; 2025 FDOA. All Rights Reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
