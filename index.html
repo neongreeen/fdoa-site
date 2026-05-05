@@ -28,19 +28,24 @@
       font-size: 15px;
       line-height: 1.6;
       overflow-x: hidden;
-      /* ページ全体の高さに1本のグラデーション — スクロールで変化 */
-      background:
-        linear-gradient(
-          to bottom,
-          var(--cream)   0%,
-          var(--blush)  20%,
-          var(--beige)  40%,
-          var(--cream)  55%,
-          var(--peach)  72%,
-          var(--blush)  85%,
-          var(--cream) 100%
-        );
-      background-attachment: scroll;
+      /* 背景がゆっくり自走するグラデーション */
+      background: linear-gradient(
+        to bottom,
+        var(--cream)   0%,
+        var(--blush)  20%,
+        var(--beige)  45%,
+        var(--peach)  65%,
+        var(--blush)  82%,
+        var(--cream) 100%
+      );
+      background-size: 100% 300%;
+      background-position: 50% 0%;
+      animation: gradientDrift 24s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientDrift {
+      0%   { background-position: 50% 0%; }
+      100% { background-position: 50% 100%; }
     }
 
     /* ── NAV ── */
