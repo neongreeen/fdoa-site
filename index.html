@@ -1,146 +1,723 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FDOA – FIVESTAR Design Office &amp; Associates</title>
-  <meta name="description" content="Temporary home for FDOA – an independent design office working across interior, product and architectural projects." />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDOA — FIVESTAR design office and associates</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --fg-main: #3c3027;
-      --fg-soft: #5d4b3f;
-      --fg-muted: #8a7464;
-      --accent: #b8792b;
-      --max-width: 920px;
+      --black: #0d0d0d;
+      --white: #f5f5f3;
+      --gray: #888;
+      --light: #e8e8e6;
+      --accent: #c8a96e;
+      --font-en: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-jp: 'Noto Sans JP', 'Hiragino Kaku Gothic Pro', sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: "Oriya MN", system-ui, -apple-system,
-        BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      color: var(--fg-main);
-      /* スクショに合わせた柔らかいグラデーション背景 */
-      background: linear-gradient(
-        180deg,
-        #f4ede1 0%,
-        #efe0cf 30%,
-        #e5cbad 65%,
-        #ddb994 100%
-      );
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-en);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
       display: flex;
-      justify-content: center;
-      align-items: stretch;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      mix-blend-mode: normal;
+      background: rgba(245,245,243,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
     }
 
-    main {
-      width: 100%;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 72px 32px 80px;
-    }
-
-    @media (min-width: 960px) {
-      main {
-        padding: 96px 40px 96px;
-      }
-    }
-
-    .brand-mark {
-      display: inline-block;
-      font-size: 11px;
-      letter-spacing: 0.18em;
+    .nav-logo {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--fg-muted);
-      border: 1px solid rgba(92, 74, 61, 0.28);
-      border-radius: 999px;
-      padding: 6px 14px 5px;
-      backdrop-filter: blur(4px);
-      background: rgba(244, 237, 225, 0.5);
+      text-decoration: none;
+      color: var(--black);
     }
 
-    .hero {
-      margin-top: 48px;
-      max-width: 520px;
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
     }
 
-    .logo {
-      margin: 0 0 8px;
-      font-size: clamp(40px, 5vw, 60px);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .tagline {
-      margin: 0 0 28px;
+    .nav-links a {
       font-size: 12px;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--fg-muted);
+      text-decoration: none;
+      color: var(--black);
+      opacity: 0.6;
+      transition: opacity 0.2s;
     }
 
-    .lead {
-      margin: 0 0 12px;
+    .nav-links a:hover { opacity: 1; }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px;
+      background: var(--black);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 60%, #1f1a14 100%);
+      opacity: 1;
+    }
+
+    /* placeholder for hero background image */
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/hero.jpg'); /* ← 要画像 */
+      background-size: cover;
+      background-position: center;
+      opacity: 0.35;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-label {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(56px, 8vw, 120px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 28px;
+    }
+
+    .hero-subtitle {
       font-size: 14px;
-      line-height: 1.7;
-      color: var(--fg-soft);
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      max-width: 480px;
+      line-height: 1.8;
     }
 
-    .note {
-      margin: 18px 0 0;
+    .hero-scroll {
+      position: absolute;
+      right: 48px;
+      bottom: 80px;
+      writing-mode: vertical-rl;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 60px;
+      background: currentColor;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 120px 48px; }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 64px;
+    }
+
+    /* ── WORKS ── */
+    #works { background: var(--white); }
+
+    .works-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 64px;
+    }
+
+    .works-title {
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+
+    .works-filter {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .works-filter li {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+      padding-bottom: 2px;
+    }
+
+    .works-filter li.active,
+    .works-filter li:hover { opacity: 1; border-bottom: 1px solid var(--black); }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .work-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--light);
+      aspect-ratio: 4/3;
+    }
+
+    .work-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      background: var(--light); /* placeholder color */
+    }
+
+    /* placeholder gradients for works (replace with actual images) */
+    .work-card:nth-child(1) .work-card-img { background: linear-gradient(135deg, #2a2a2a, #1a1a1a); }
+    .work-card:nth-child(2) .work-card-img { background: linear-gradient(135deg, #3a3020, #1a1510); }
+    .work-card:nth-child(3) .work-card-img { background: linear-gradient(135deg, #1a2030, #0d1520); }
+    .work-card:nth-child(4) .work-card-img { background: linear-gradient(135deg, #2a1a1a, #1a0d0d); }
+    .work-card:nth-child(5) .work-card-img { background: linear-gradient(135deg, #1a2a1a, #0d1a0d); }
+    .work-card:nth-child(6) .work-card-img { background: linear-gradient(135deg, #252525, #151515); }
+
+    .work-card:hover .work-card-img { transform: scale(1.04); }
+
+    .work-card-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+      color: var(--white);
+      transform: translateY(8px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .work-card:hover .work-card-info { transform: translateY(0); opacity: 1; }
+
+    .work-name {
+      font-size: 16px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .work-meta {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .about-inner {
+      max-width: 900px;
+    }
+
+    .about-heading {
+      font-size: clamp(28px, 4vw, 56px);
+      font-weight: 300;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
+    .about-body {
+      font-size: 15px;
+      line-height: 1.9;
+      opacity: 0.7;
+      max-width: 640px;
+      margin-bottom: 64px;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 64px;
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat-number {
+      font-size: 40px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    /* ── DISCIPLINES ── */
+    #disciplines {
+      background: var(--white);
+      padding: 120px 48px;
+    }
+
+    .disciplines-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 64px;
+    }
+
+    .discipline-item {
+      padding: 48px 32px;
+      background: var(--light);
+      transition: background 0.3s;
+    }
+
+    .discipline-item:hover { background: var(--black); color: var(--white); }
+
+    .discipline-num {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      opacity: 0.4;
+      margin-bottom: 24px;
+    }
+
+    .discipline-name {
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .discipline-desc {
       font-size: 13px;
       line-height: 1.8;
-      color: var(--fg-muted);
+      opacity: 0.6;
     }
 
-    .footnote {
-      margin-top: 80px;
-      font-size: 11px;
-      letter-spacing: 0.18em;
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--white);
+      border-top: 1px solid var(--light);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 120px;
+      align-items: start;
+    }
+
+    .contact-heading {
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .contact-sub {
+      font-size: 14px;
+      line-height: 1.8;
+      opacity: 0.6;
+      max-width: 400px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--black);
+      text-decoration: none;
+      margin-top: 32px;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 4px;
+      transition: opacity 0.2s;
+    }
+
+    .contact-email:hover { opacity: 0.5; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+
+    .form-group label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(60, 48, 39, 0.6);
+      opacity: 0.5;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      border: none;
+      border-bottom: 1px solid var(--light);
+      background: transparent;
+      padding: 12px 0;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      color: var(--black);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { border-bottom-color: var(--black); }
+
+    .form-group textarea { resize: none; height: 100px; }
+
+    .form-submit {
+      margin-top: 16px;
+      padding: 16px 40px;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      font-family: inherit;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: opacity 0.2s;
+    }
+
+    .form-submit:hover { opacity: 0.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--white);
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+
+    .footer-links a:hover { opacity: 1; }
+
+    .footer-copy {
+      font-size: 11px;
+      opacity: 0.3;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      section { padding: 80px 24px; }
+      #hero { padding: 0 24px 60px; }
+
+      .works-grid { grid-template-columns: repeat(2, 1fr); }
+      .disciplines-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-inner { grid-template-columns: 1fr; gap: 60px; }
+      .about-stats { gap: 40px; }
+      footer { flex-direction: column; gap: 24px; text-align: center; }
+      .works-header { flex-direction: column; gap: 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .works-grid { grid-template-columns: 1fr; }
+      .disciplines-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <span class="brand-mark">
-        FIVESTAR Design Office &amp; Associates
-      </span>
-    </header>
 
-    <section class="hero">
-      <h1 class="logo">FDOA</h1>
-      <p class="tagline">INTERIOR / PRODUCT / ARCHITECTURE</p>
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">FDOA</a>
+    <ul class="nav-links">
+      <li><a href="#works">Works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#disciplines">Disciplines</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-      <p class="lead">
-        FDOA is an independent design office working across interior, product
-        and architectural projects from Fukuoka, Japan.
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-bg-img"></div>
+    <div class="hero-content">
+      <p class="hero-label">Fukuoka, Japan — Est. 2018</p>
+      <h1 class="hero-title">FDOA</h1>
+      <p class="hero-subtitle">
+        FIVESTAR design office and associates.<br>
+        Interior, Product, Graphic &amp; Architecture design
+        guided by honest thinking and careful making.
       </p>
-      <p class="lead">
-        The portfolio and project details are currently being prepared. This page
-        is a simple temporary home while the full site is designed and built.
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="works-header">
+      <h2 class="works-title">Works</h2>
+      <ul class="works-filter">
+        <li class="active">All</li>
+        <li>Interior</li>
+        <li>Product</li>
+        <li>Graphic</li>
+      </ul>
+    </div>
+
+    <div class="works-grid">
+
+      <div class="work-card">
+        <div class="work-card-img"></div><!-- img src="assets/works/bebe.jpg" -->
+        <div class="work-card-info">
+          <p class="work-name">Bebe Hair Salon</p>
+          <p class="work-meta">Interior · Fukuoka · 2025</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img"></div><!-- img src="assets/works/club-cave.jpg" -->
+        <div class="work-card-info">
+          <p class="work-name">Club Cave</p>
+          <p class="work-meta">Interior · Fukuoka · 2024</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img"></div><!-- img src="assets/works/clt-cabin.jpg" -->
+        <div class="work-card-info">
+          <p class="work-name">CLT Cabin</p>
+          <p class="work-meta">Architecture · Fukuoka · 2022</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img"></div><!-- img src="assets/works/sora-no-mori.jpg" -->
+        <div class="work-card-info">
+          <p class="work-name">Sora no Mori KYUSHU</p>
+          <p class="work-meta">Interior · Fukuoka · 2022</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img"></div><!-- img src="assets/works/kamakiri-coffee.jpg" -->
+        <div class="work-card-info">
+          <p class="work-name">Kamakiri Coffee</p>
+          <p class="work-meta">Interior · Fukuoka · 2019</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img"></div><!-- img src="assets/works/weiss.jpg" -->
+        <div class="work-card-info">
+          <p class="work-name">Weiss</p>
+          <p class="work-meta">Graphic · Fukuoka · 2019</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <div class="about-inner">
+      <h2 class="about-heading">
+        Design rooted in<br>
+        place, material,<br>
+        and people.
+      </h2>
+      <p class="about-body">
+        FDOA (FIVESTAR design office and associates) is a Fukuoka-based design practice
+        founded in 2018 by Yoshiaki Yamaguchi. We work across interior, product, graphic,
+        and architectural scales — from a single chair to a complete restaurant, from a
+        logotype to a building facade.
+      </p>
+      <p class="about-body">
+        Our process begins with listening. Every project carries its own constraints,
+        desires, and stories. We translate these into spaces and objects that feel both
+        considered and effortless — where the making disappears and only the experience remains.
       </p>
 
-      <p class="note">
-        A more complete FDOA site will be released soon.
-      </p>
-    </section>
+      <div class="about-stats">
+        <div>
+          <p class="stat-number">8+</p>
+          <p class="stat-label">Years of practice</p>
+        </div>
+        <div>
+          <p class="stat-number">40+</p>
+          <p class="stat-label">Projects completed</p>
+        </div>
+        <div>
+          <p class="stat-number">4</p>
+          <p class="stat-label">Design disciplines</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <footer class="footnote">
-      TEMPORARY HOME FOR FDOA
-    </footer>
-  </main>
+  <!-- DISCIPLINES -->
+  <section id="disciplines">
+    <p class="section-label">Disciplines</p>
+    <div class="disciplines-grid">
+      <div class="discipline-item">
+        <p class="discipline-num">01</p>
+        <p class="discipline-name">Interior</p>
+        <p class="discipline-desc">
+          Restaurants, retail, hospitality, and residential spaces
+          designed from plan to detail.
+        </p>
+      </div>
+      <div class="discipline-item">
+        <p class="discipline-num">02</p>
+        <p class="discipline-name">Product</p>
+        <p class="discipline-desc">
+          Furniture, fixtures, and objects developed with makers
+          and manufacturers across Japan.
+        </p>
+      </div>
+      <div class="discipline-item">
+        <p class="discipline-num">03</p>
+        <p class="discipline-name">Graphic</p>
+        <p class="discipline-desc">
+          Visual identities, signage systems, and printed matter
+          that extend spatial thinking into 2D.
+        </p>
+      </div>
+      <div class="discipline-item">
+        <p class="discipline-num">04</p>
+        <p class="discipline-name">Architecture</p>
+        <p class="discipline-desc">
+          Building design and renovation at residential
+          and commercial scale.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="contact-heading">Let's work<br>together.</h2>
+        <p class="contact-sub">
+          We welcome inquiries from clients and collaborators
+          worldwide. Tell us about your project and we'll be in touch.
+        </p>
+        <a class="contact-email" href="mailto:info@fdoa.jp">info@fdoa.jp</a>
+        <p style="margin-top:40px; font-size:12px; opacity:0.4; letter-spacing:0.1em;">
+          Fukuoka, Japan
+        </p>
+      </div>
+
+      <form class="contact-form" action="#" method="post">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="type">Project type</label>
+          <select id="type" name="type">
+            <option value="">Select...</option>
+            <option>Interior</option>
+            <option>Product</option>
+            <option>Graphic</option>
+            <option>Architecture</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us about your project…" required></textarea>
+        </div>
+        <button class="form-submit" type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">FDOA</span>
+    <ul class="footer-links">
+      <li><a href="https://instagram.com/" target="_blank">Instagram</a></li>
+      <li><a href="https://x.com/" target="_blank">X</a></li>
+      <li><a href="https://www.5sdo.jp" target="_blank">5sdo.jp</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 FDOA. All rights reserved.</span>
+  </footer>
+
 </body>
 </html>
