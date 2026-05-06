@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>空の森 — KYUSHU — FDOA</title>
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #f7f4ef;
+      --beige:   #f0e9de;
+      --blush:   #f5ebe6;
+      --peach:   #eeddd4;
+      --ink:     #2a2520;
+      --muted:   #8c7f76;
+      --rule:    rgba(42,37,32,0.08);
+      --font-en: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      color: var(--ink);
+      font-family: var(--font-en);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background: linear-gradient(
+        to bottom,
+        var(--cream)   0%,
+        var(--blush)  20%,
+        var(--beige)  45%,
+        var(--peach)  65%,
+        var(--blush)  82%,
+        var(--cream) 100%
+      );
+      background-size: 100% 300%;
+      background-position: 50% 0%;
+      animation: gradientDrift 24s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientDrift {
+      0%   { background-position: 50% 0%; }
+      100% { background-position: 50% 100%; }
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(247,244,239,0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    footer {
+      padding: 48px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--rule);
+      margin-top: 120px;
+    }
+
+    .footer-logo {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      font-weight: 400;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PROJECT PAGE ── */
+
+    .project-hero {
+      width: 100%;
+      height: 90vh;
+      position: relative;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .project-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(42,37,32,0.18) 100%);
+    }
+
+    .project-hero-crumb {
+      position: absolute;
+      top: 96px;
+      left: 48px;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.7;
+      text-decoration: none;
+    }
+
+    .project-hero-crumb:hover { opacity: 1; }
+
+    .project-info {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      padding: 80px 48px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .project-title {
+      font-size: clamp(28px, 3.5vw, 52px);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 40px;
+    }
+
+    .project-meta-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    .meta-value {
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+    }
+
+    .project-description {
+      font-size: 16px;
+      line-height: 1.95;
+      color: var(--muted);
+      padding-top: 8px;
+    }
+
+    .project-gallery {
+      padding: 0 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+
+    .gallery-grid.single { grid-template-columns: 1fr; }
+    .gallery-grid.triple { grid-template-columns: repeat(3, 1fr); }
+
+    .gallery-grid img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-grid img:hover { opacity: 0.92; }
+
+    .gallery-grid .full-width {
+      grid-column: 1 / -1;
+      aspect-ratio: 16/9;
+    }
+
+    .project-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 64px 48px 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid var(--rule);
+      margin-top: 80px;
+    }
+
+    .project-nav-link {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-nav-link:hover { color: var(--ink); }
+
+    .project-nav-back {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+    .project-nav-back:hover { opacity: 1; }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(42,37,32,0.92);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      color: var(--cream);
+      font-size: 28px;
+      cursor: pointer;
+      opacity: 0.6;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+
+    .lightbox-close:hover { opacity: 1; }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="/">FDOA</a>
+    <ul class="nav-links">
+      <li><a href="/#works">Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="project-hero">
+    <img src="../assets/works/soranomori_soranomorikyushu_001.jpg" alt="空の森">
+    <div class="project-hero-overlay"></div>
+    <a class="project-hero-crumb" href="/#works">← Works</a>
+  </div>
+
+  <section class="project-info">
+    <div>
+      <h1 class="project-title"><span translate="no">空の森</span><br><span style="font-size:0.6em;letter-spacing:0.08em;opacity:0.55;">KYUSHU</span></h1>
+      <div class="project-meta-grid">
+        <div class="meta-item">
+          <span class="meta-label">Year</span>
+          <span class="meta-value">2022</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Type</span>
+          <span class="meta-value">Interior</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Location</span>
+          <span class="meta-value">Fukuoka, Japan</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="project-description">A large-scale interior project evoking the canopy of a forest open to sky. Layered materials and soft, diffused light dissolve the boundary between shelter and nature — a space designed to breathe.</p>
+    </div>
+  </section>
+
+  <section class="project-gallery">
+    <div class="gallery-grid triple">
+      <img src="../assets/works/soranomori_soranomorikyushu_001.jpg" alt="" loading="lazy" class="full-width">
+      <img src="../assets/works/soranomori_soranomorikyushu_002.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_003.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_004.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_005.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_006.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_007.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_008.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_009.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_010.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_011.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_012.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_013.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_014.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_015.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_016.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_017.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_018.jpg" alt="" loading="lazy">
+      <img src="../assets/works/soranomori_soranomorikyushu_019.jpg" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <div class="project-nav-bar">
+    <a class="project-nav-link" href="rudan.html">← <span translate="no">るだん</span></a>
+    <a class="project-nav-back" href="/#works">All Works</a>
+    <a class="project-nav-link" href="cltcabin.html"><span translate="no">CLT Cabin</span> →</a>
+  </div>
+
+  <footer>
+    <span class="footer-logo">FDOA</span>
+    <ul class="footer-links">
+      <li><a href="https://instagram.com/" target="_blank">Instagram</a></li>
+      <li><a href="https://x.com/" target="_blank">X</a></li>
+      <li><a href="https://www.5sdo.jp" target="_blank">5sdo.jp</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 FDOA. All rights reserved.</span>
+  </footer>
+
+  <div class="lightbox" id="lb">
+    <button class="lightbox-close" onclick="closeLb()">×</button>
+    <img id="lb-img" src="" alt="">
+  </div>
+  <script>
+    document.querySelectorAll('.gallery-grid img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => {
+        document.getElementById('lb-img').src = img.src;
+        document.getElementById('lb').classList.add('open');
+      });
+    });
+    function closeLb() { document.getElementById('lb').classList.remove('open'); }
+    document.getElementById('lb').addEventListener('click', e => { if(e.target===e.currentTarget) closeLb(); });
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
+  </script>
+
+</body>
+</html>
