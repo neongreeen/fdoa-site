@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CycleComp">
+<link rel="manifest" href="/cycle-manifest.json">
+<title>CycleComp</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  :root {
+    --bg: #0a0a0a; --panel: #141414; --border: #222;
+    --accent: #00e5a0; --accent2: #00b4ff; --warn: #ff6b35;
+    --text: #f0f0f0; --muted: #666; --dim: #333;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, 'SF Pro Display', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; touch-action: manipulation; }
+  #status-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px 4px; font-size: 11px; color: var(--muted); background: var(--bg); border-bottom: 1px solid var(--border); }
+  #gps-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); display: inline-block; margin-right: 4px; transition: background 0.3s; }
+  #gps-dot.active { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+  #gps-dot.warn { background: var(--warn); }
+  #speed-section { padding: 16px 20px 8px; text-align: center; background: var(--bg); }
+  #speed-value { font-size: 96px; font-weight: 700; letter-spacing: -4px; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; transition: color 0.3s; }
+  #speed-unit { font-size: 18px; color: var(--muted); letter-spacing: 2px; margin-top: -4px; text-transform: uppercase; }
+  #metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 2px; flex: 1; }
+  .metric-card { background: var(--panel); padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; min-height: 90px; border: 1px solid var(--border); border-radius: 4px; }
+  .metric-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 600; }
+  .metric-value { font-size: 38px; font-weight: 600; letter-spacing: -1px; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text); }
+  .metric-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .metric-card.highlight .metric-value { color: var(--accent2); }
+  .metric-card.warn-card .metric-value { color: var(--warn); }
+  #cadence-section { padding: 8px 16px; background: var(--panel); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  #cadence-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+  #cadence-bar-bg { height: 6px; background: var(--dim); border-radius: 3px; overflow: hidden; }
+  #cadence-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 3px; transition: width 0.5s ease; }
+  #controls { display: flex; gap: 8px; padding: 10px 12px; background: var(--bg); }
+  .btn { flex: 1; padding: 14px; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: opacity 0.15s, transform 0.1s; text-transform: uppercase; }
+  .btn:active { opacity: 0.7; transform: scale(0.97); }
+  #btn-start { background: var(--accent); color: #000; flex: 2; }
+  #btn-start.running { background: var(--warn); color: #fff; }
+  #btn-reset { background: var(--dim); color: var(--muted); }
+  #permission-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 32px; z-index: 100; text-align: center; }
+  #permission-overlay h2 { font-size: 22px; }
+  #permission-overlay p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+  #permission-overlay .icon { font-size: 48px; }
+  #btn-permit { width: 100%; max-width: 280px; padding: 16px; background: var(--accent); color: #000; border: none; border-radius: 10px; font-size: 17px; font-weight: 700; cursor: pointer; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div id="permission-overlay">
+  <div class="icon">🚴</div>
+  <h2>CycleComp</h2>
+  <p>GPS・モーションセンサーへのアクセスが必要です。<br>「許可」を押してスタートしてください。</p>
+  <button id="btn-permit" onclick="requestPermissions()">センサーを許可してスタート</button>
+  <p style="font-size:12px;margin-top:8px;">Safari → ホーム画面に追加 でオフライン対応アプリになります</p>
+</div>
+<div id="status-bar">
+  <span><span id="gps-dot"></span><span id="gps-status">GPS未接続</span></span>
+  <span id="accuracy-text">—</span>
+  <span id="clock">--:--</span>
+</div>
+<div id="speed-section">
+  <div id="speed-value">0.0</div>
+  <div id="speed-unit">km/h</div>
+</div>
+<div id="metrics-grid">
+  <div class="metric-card highlight">
+    <div class="metric-label">距離</div>
+    <div><div class="metric-value" id="distance">0.00</div><div class="metric-sub">km</div></div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">経過時間</div>
+    <div><div class="metric-value" id="elapsed" style="font-size:32px;">00:00</div><div class="metric-sub">hh:mm</div></div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">平均速度</div>
+    <div><div class="metric-value" id="avg-speed">0.0</div><div class="metric-sub">km/h</div></div>
+  </div>
+  <div class="metric-card warn-card">
+    <div class="metric-label">最高速度</div>
+    <div><div class="metric-value" id="max-speed">0.0</div><div class="metric-sub">km/h</div></div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">標高</div>
+    <div><div class="metric-value" id="altitude">—</div><div class="metric-sub">m</div></div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">ケイデンス</div>
+    <div><div class="metric-value" id="cadence">—</div><div class="metric-sub">rpm (推定)</div></div>
+  </div>
+</div>
+<div id="cadence-section">
+  <div id="cadence-label"><span>ペダリングリズム</span><span id="cadence-zone">—</span></div>
+  <div id="cadence-bar-bg"><div id="cadence-bar-fill"></div></div>
+</div>
+<div id="controls">
+  <button class="btn" id="btn-reset" onclick="resetRide()">リセット</button>
+  <button class="btn" id="btn-start" onclick="toggleRide()">スタート</button>
+</div>
+<script>
+let running=false,watchId=null,startTime=null,pausedDuration=0,pauseStart=null,lastPos=null,totalDistance=0,maxSpeed=0,speedSamples=[],elapsedInterval=null,accelBuffer=[],cadenceRPM=0;
+
+async function requestPermissions(){
+  if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){
+    try{const r=await DeviceMotionEvent.requestPermission();if(r!=='granted'){alert('モーションセンサーの許可が必要です');return;}}catch(e){}
+  }
+  document.getElementById('permission-overlay').classList.add('hidden');
+  initSensors();updateClock();setInterval(updateClock,1000);
+}
+
+function updateClock(){const n=new Date();document.getElementById('clock').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
+
+function initSensors(){
+  if(!navigator.geolocation){document.getElementById('gps-status').textContent='GPS非対応';return;}
+  watchId=navigator.geolocation.watchPosition(onPosition,onGpsError,{enableHighAccuracy:true,maximumAge:1000,timeout:10000});
+  window.addEventListener('devicemotion',onMotion);
+  setInterval(calcCadence,2000);
+}
+
+function onPosition(pos){
+  document.getElementById('gps-dot').className='active';
+  document.getElementById('gps-status').textContent='GPS接続中';
+  document.getElementById('accuracy-text').textContent='精度±'+Math.round(pos.coords.accuracy)+'m';
+  if(!running){lastPos=pos;return;}
+  let spd=0;
+  if(pos.coords.speed!==null&&pos.coords.speed>=0)spd=pos.coords.speed*3.6;
+  else if(lastPos){const d=haversine(lastPos.coords,pos.coords),dt=(pos.timestamp-lastPos.timestamp)/1000;if(dt>0)spd=(d/dt)*3.6;}
+  if(spd>120)spd=0;
+  document.getElementById('speed-value').textContent=spd.toFixed(1);
+  const sv=document.getElementById('speed-value');
+  sv.style.color=spd>35?'var(--warn)':spd>20?'var(--accent2)':'var(--accent)';
+  if(spd>maxSpeed){maxSpeed=spd;document.getElementById('max-speed').textContent=maxSpeed.toFixed(1);}
+  if(lastPos&&spd>0.5){totalDistance+=haversine(lastPos.coords,pos.coords);document.getElementById('distance').textContent=(totalDistance/1000).toFixed(2);}
+  if(pos.coords.altitude!==null)document.getElementById('altitude').textContent=Math.round(pos.coords.altitude);
+  speedSamples.push(spd);if(speedSamples.length>100)speedSamples.shift();
+  document.getElementById('avg-speed').textContent=(speedSamples.reduce((a,b)=>a+b,0)/speedSamples.length).toFixed(1);
+  lastPos=pos;
+}
+
+function onGpsError(){document.getElementById('gps-dot').className='warn';document.getElementById('gps-status').textContent='GPS エラー';}
+
+function haversine(c1,c2){const R=6371000,dLat=(c2.latitude-c1.latitude)*Math.PI/180,dLon=(c2.longitude-c1.longitude)*Math.PI/180;const a=Math.sin(dLat/2)**2+Math.cos(c1.latitude*Math.PI/180)*Math.cos(c2.latitude*Math.PI/180)*Math.sin(dLon/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+
+function onMotion(e){if(!running)return;const a=e.accelerationIncludingGravity;if(!a)return;const mag=Math.sqrt(a.x**2+a.y**2+a.z**2);accelBuffer.push({t:Date.now(),v:mag});accelBuffer=accelBuffer.filter(p=>p.t>Date.now()-4000);}
+
+function calcCadence(){
+  if(!running||accelBuffer.length<20)return;
+  const data=accelBuffer,mean=data.reduce((s,p)=>s+p.v,0)/data.length,thr=mean*1.05;
+  let peaks=0,inPeak=false;
+  for(let i=1;i<data.length-1;i++){if(!inPeak&&data[i].v>thr&&data[i].v>data[i-1].v){inPeak=true;peaks++;}else if(inPeak&&data[i].v<thr)inPeak=false;}
+  const ws=(data[data.length-1].t-data[0].t)/1000;if(ws<0.5)return;
+  const rpm=Math.min(Math.max(Math.round((peaks/ws)*60/2),0),150);
+  document.getElementById('cadence').textContent=rpm>0?rpm:'—';
+  document.getElementById('cadence-bar-fill').style.width=Math.min((rpm/120)*100,100)+'%';
+  const zone=rpm>=90?'高回転 ⚡':rpm>=75?'最適ゾーン ✓':rpm>=50?'低め':rpm>0?'非常に低い':'—';
+  document.getElementById('cadence-zone').textContent=zone;
+}
+
+function startTimer(){
+  if(pauseStart){pausedDuration+=Date.now()-pauseStart;pauseStart=null;}else{startTime=Date.now();pausedDuration=0;}
+  elapsedInterval=setInterval(()=>{
+    const tot=Math.floor((Date.now()-startTime-pausedDuration)/1000),h=Math.floor(tot/3600),m=Math.floor((tot%3600)/60),s=tot%60;
+    document.getElementById('elapsed').textContent=h>0?String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'):String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  },1000);
+}
+function pauseTimer(){pauseStart=Date.now();clearInterval(elapsedInterval);}
+
+function toggleRide(){
+  running=!running;
+  const btn=document.getElementById('btn-start');
+  if(running){btn.textContent='一時停止';btn.classList.add('running');startTimer();if(!watchId)initSensors();}
+  else{btn.textContent='スタート';btn.classList.remove('running');pauseTimer();document.getElementById('speed-value').textContent='0.0';document.getElementById('speed-value').style.color='var(--accent)';}
+}
+
+function resetRide(){
+  if(running){running=false;document.getElementById('btn-start').textContent='スタート';document.getElementById('btn-start').classList.remove('running');clearInterval(elapsedInterval);}
+  startTime=null;pausedDuration=0;pauseStart=null;totalDistance=0;maxSpeed=0;speedSamples=[];accelBuffer=[];lastPos=null;
+  document.getElementById('speed-value').textContent='0.0';document.getElementById('speed-value').style.color='var(--accent)';
+  document.getElementById('distance').textContent='0.00';document.getElementById('elapsed').textContent='00:00';
+  document.getElementById('avg-speed').textContent='0.0';document.getElementById('max-speed').textContent='0.0';
+  document.getElementById('altitude').textContent='—';document.getElementById('cadence').textContent='—';
+  document.getElementById('cadence-bar-fill').style.width='0%';document.getElementById('cadence-zone').textContent='—';
+}
+
+if('wakeLock' in navigator){document.addEventListener('click',async()=>{try{await navigator.wakeLock.request('screen');}catch(e){}},{once:true});}
+
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/cycle-sw.js').then(()=>console.log('SW登録完了')).catch(e=>console.warn('SW登録失敗',e));});}
+</script>
+</body>
+</html>
