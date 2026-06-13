@@ -16,6 +16,8 @@
       --ink:     #2a2520;
       --muted:   #8c7f76;
       --rule:    rgba(42,37,32,0.08);
+      --font-en: 'acumin-pro', 'Helvetica Neue', Arial, sans-serif;
+      --font-ja: 'M PLUS 1', 'Hiragino Kaku Gothic ProN', sans-serif;
       --font-en: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
@@ -206,11 +208,24 @@
       color: var(--ink);
     }
 
-    .project-description {
+        .project-description {
+      font-family: var(--font-en, 'acumin-pro', 'Helvetica Neue', sans-serif);
       font-size: 16px;
       line-height: 1.95;
       color: var(--muted);
       padding-top: 8px;
+      margin-bottom: 10px;
+    }
+
+    .project-description-ja {
+      font-family: var(--font-ja, 'M PLUS 1', 'Hiragino Kaku Gothic ProN', sans-serif);
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 2.1;
+      color: var(--muted);
+      opacity: 0.85;
+      padding-top: 10px;
+      border-top: 1px solid var(--rule);
     }
 
     .project-gallery {
@@ -315,6 +330,7 @@
     .lightbox-close:hover { opacity: 1; }
 
   </style>
+  <link rel="stylesheet" href="https://use.typekit.net/qii6ndg.css">
 </head>
 <body>
 
@@ -349,6 +365,7 @@
     </div>
     <div>
       <p class="project-description">A renovation of the beloved Inaba Udon, a long-running local udon restaurant. The design preserves the spirit of the original while bringing a contemporary clarity — respecting the memory of a place while giving it new life.</p>
+      <p class="project-description-ja">地元に長く愛される老舗うどん店のリノベーション。オリジナルの精神を受け継ぎながら、現代的な明快さをもたらす。場の記憶を丁寧に尊重しながら、次の時代へと開かれた空間。</p>
     </div>
   </section>
 
