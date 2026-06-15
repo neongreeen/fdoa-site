@@ -111,6 +111,8 @@
       background-size: cover;
       background-position: center;
       opacity: 0.28;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 78%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 78%, transparent 100%);
     }
 
     .hero-content { position: relative; z-index: 1; }
@@ -690,5 +692,18 @@
   })();</script>
 
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "767b80fb7bd44d918a84a10b31d9c934"}'></script><!-- End Cloudflare Web Analytics -->
+  <script>(function(){
+    var imgs=[
+      'assets/works/soranomori_soranomorikyushu_002.jpg',
+      'assets/works/cave_001.jpg',
+      'assets/works/cltcabin_001_1.jpg',
+      'assets/works/inaba_inabameinohama02.jpg',
+      'assets/works/kamakiri_kamakiricoffee002.jpg',
+      'assets/works/rudan_0L4A9782-1.jpg'
+    ];
+    var el=document.querySelector('.hero-bg-img');
+    if(el){ el.style.backgroundImage="url('"+imgs[Math.floor(Math.random()*imgs.length)]+"')"; }
+  })();</script>
 </body>
+
 </html>
