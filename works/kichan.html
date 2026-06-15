@@ -332,6 +332,17 @@
       .about-heading-ja, .contact-heading-ja { font-size: 14px; }
       .work-name { font-size: 13px; }
     }
+    .nav-toggle { display:none; margin-left:auto; flex-direction:column; justify-content:center; gap:5px; width:28px; height:20px; background:none; border:none; cursor:pointer; padding:0; z-index:101; }
+    .nav-toggle span { display:block; height:1.5px; width:100%; background:rgba(255,255,255,0.92); box-shadow:0 0 2px rgba(0,0,0,0.4); transition:transform .3s ease, opacity .3s ease; }
+    nav.scrolled .nav-logo, nav.scrolled .nav-links { display:none; }
+    nav.scrolled .nav-toggle { display:flex; }
+    .nav-toggle.open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2){ opacity:0; }
+    .nav-toggle.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+    .nav-overlay { position:fixed; inset:0; z-index:99; background:rgba(42,37,32,0.93); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; opacity:0; pointer-events:none; transition:opacity .35s ease; }
+    .nav-overlay.open { opacity:1; pointer-events:auto; }
+    .nav-overlay a { font-family:var(--font-en); font-size:18px; font-weight:300; letter-spacing:0.22em; text-transform:uppercase; color:var(--cream); text-decoration:none; opacity:0.85; }
+    .nav-overlay a:hover { opacity:1; }
   </style>
 
   <link rel="stylesheet" href="https://use.typekit.net/qii6ndg.css">
@@ -349,7 +360,13 @@
       <li><a href="/#about">About</a></li>
       <li><a href="/#contact">Contact</a></li>
     </ul>
+      <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
   </nav>
+  <div class="nav-overlay" id="navOverlay">
+    <a href="/#works">Works</a>
+    <a href="/#about">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
 
   <div class="project-hero">
     <img src="../assets/works/kichan_001.jpg" alt="2階の黄ちゃん">
@@ -419,5 +436,17 @@
   </script>
 
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "767b80fb7bd44d918a84a10b31d9c934"}'></script><!-- End Cloudflare Web Analytics -->
+  <script>(function(){
+    var nav=document.querySelector('nav');
+    var toggle=document.querySelector('.nav-toggle');
+    var overlay=document.getElementById('navOverlay');
+    if(!nav||!toggle||!overlay) return;
+    function closeMenu(){ overlay.classList.remove('open'); toggle.classList.remove('open'); }
+    function openMenu(){ overlay.classList.add('open'); toggle.classList.add('open'); }
+    function onScroll(){ if(window.scrollY>60){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); closeMenu(); } }
+    toggle.addEventListener('click',function(){ overlay.classList.contains('open')?closeMenu():openMenu(); });
+    overlay.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeMenu); });
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  })();</script>
 </body>
 </html>
