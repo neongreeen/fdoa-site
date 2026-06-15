@@ -395,6 +395,42 @@
 
     .contact-email-link:hover { border-color: var(--ink); }
 
+    .contact-form { display: flex; flex-direction: column; gap: 22px; max-width: 420px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field-label {
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); opacity: 0.7;
+    }
+    .contact-form input, .contact-form textarea {
+      font-family: var(--font-ja);
+      font-size: 14px; font-weight: 300; color: var(--ink);
+      background: rgba(255,255,255,0.4);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 12px 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none; border-color: var(--ink); background: rgba(255,255,255,0.7);
+    }
+    .contact-form textarea { resize: vertical; }
+    .contact-submit {
+      align-self: flex-start;
+      font-family: var(--font-en);
+      font-size: 12px; font-weight: 300;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--ink); background: none;
+      border: none; border-bottom: 1px solid rgba(42,37,32,0.2);
+      border-radius: 0;
+      padding: 6px 2px; margin-top: 6px; cursor: pointer;
+      transition: border-color 0.25s ease, letter-spacing 0.25s ease;
+    }
+    .contact-submit:hover { border-color: var(--ink); letter-spacing: 0.3em; }
+    .form-status {
+      font-family: var(--font-ja);
+      font-size: 12px; line-height: 1.7; color: var(--muted); min-height: 1em;
+    }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--rule);
@@ -565,8 +601,8 @@
       </div>
 
       <div class="bilingual-block">
-        <p class="about-body">Our process begins with listening. Every project carries its own constraints, desires, and stories. We translate these into spaces and objects that feel both considered and effortless — where the making disappears and only the experience remains.</p>
-        <p class="about-body-ja">プロセスは、いつも聞くことから始まります。すべてのプロジェクトには固有の制約、要望、そして物語があります。それらを、思慮深くありながら自然体に感じられる空間やものへと翻訳する。作り手の痕跡が消え、体験だけが残るように。</p>
+        <p class="about-body">Our process begins with listening. Every project carries its own constraints, desires, and stories. We translate these into spaces and objects that feel both thoughtfully considered and effortless — so that everything comes together into a comfortable, pleasant experience.</p>
+        <p class="about-body-ja">プロセスは、いつも聞くことから始まります。すべてのプロジェクトには固有の制約、要望、そして物語があります。それらを、思慮深く考察しながら自然体に感じられる空間やものへと翻訳する。心地よい体験につながるように。</p>
       </div>
 
       <div class="about-stats">
@@ -587,8 +623,22 @@
         <p style="margin-top:36px; font-size:11px; color:var(--muted); letter-spacing:0.12em;">Fukuoka, Japan</p>
       </div>
       <div class="contact-form-wrapper">
-        <p class="contact-email-label">Email</p>
-        <a id="contact-email" href="#" class="contact-email-link"></a>
+        <form id="contact-form" class="contact-form" action="https://formspree.io/f/xzdqynqj" method="POST">
+          <label class="field">
+            <span class="field-label">Name / お名前</span>
+            <input type="text" name="name" required>
+          </label>
+          <label class="field">
+            <span class="field-label">Email / メール</span>
+            <input type="email" name="email" required>
+          </label>
+          <label class="field">
+            <span class="field-label">Message / メッセージ</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button type="submit" class="contact-submit">Send / 送信</button>
+          <p id="form-status" class="form-status"></p>
+        </form>
       </div>
     </div>
   </section>
@@ -604,10 +654,18 @@
   </footer>
 
   <script>(function(){
-    var u=['c','o','n','t','a','c','t'].join('');
-    var d=['f','d','o','a','.','j','p'].join('');
-    var el=document.getElementById('contact-email');
-    if(el){el.href='mailto:'+u+'@'+d;el.textContent=u+'@'+d;}
+    var form=document.getElementById('contact-form');
+    var status=document.getElementById('form-status');
+    if(!form) return;
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      status.textContent='Sending… / 送信中…';
+      try{
+        var res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+        if(res.ok){ form.reset(); status.textContent='Thank you. We will be in touch. ／ ありがとうございます。追ってご連絡します。'; }
+        else { status.textContent='Sending failed. Please try again. ／ 送信に失敗しました。時間をおいて再度お試しください。'; }
+      }catch(err){ status.textContent='Sending failed. Please try again. ／ 送信に失敗しました。時間をおいて再度お試しください。'; }
+    });
   })();</script>
 
 </body>
