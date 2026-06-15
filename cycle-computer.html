@@ -188,5 +188,6 @@ if('wakeLock' in navigator){document.addEventListener('click',async()=>{try{awai
 
 if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/cycle-sw.js').then(()=>console.log('SW登録完了')).catch(e=>console.warn('SW登録失敗',e));});}
 </script>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "767b80fb7bd44d918a84a10b31d9c934"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
