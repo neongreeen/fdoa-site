@@ -493,7 +493,8 @@
 
     @media (max-width: 600px) {
       .works-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
+      .nav-links { display: flex; gap: 16px; }
+      .nav-links a { font-size: 10px; letter-spacing: 0.1em; opacity: 0.6; }
     }
       @media (max-width: 640px) {
       :root { --muted: #6b5f55; }
