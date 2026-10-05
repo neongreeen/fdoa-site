@@ -208,6 +208,8 @@ function bindContactForm(){const form=document.getElementById('contact-form');if
 <aside id="scroll-check" aria-label="スクロール動作確認"><p>動作確認・本番と同じコード（bb697cd）</p><p id="scroll-check-status">入力 0 回 ／ ページ送り 0 回</p><p>ポインターを動かさず、反応しない状態になったら結果をコピーしてください。</p><button id="scroll-check-copy" type="button">結果をコピー</button><p id="scroll-check-copy-status" role="status"></p></aside>
 <script>
 const checkCounts={input:0,vertical:0,zero:0,accepted:0};let checkEvents=[];
+const checkRows=new WeakMap();
+function finishCheck(e,reachedHandler){const row=checkRows.get(e);if(!row||row.finished)return;row.finished=true;row.reachedHandler=reachedHandler;row.accepted=checkCounts.accepted>row.acceptedBefore;row.spentAfter=wheelSpent;row.destination=travelIndex;row.y=Math.round(scrollY);checkEvents.push(row);if(checkEvents.length>60)checkEvents.shift();document.querySelector('#scroll-check-status').textContent=`入力 ${checkCounts.input} 回 ／ ページ送り ${checkCounts.accepted} 回`}
 const checkAdjacent=adjacentSheet;
 adjacentSheet=function(direction){const before=travelIndex??Math.round(scrollY/sheetHeight);checkAdjacent(direction);const after=travelIndex??Math.round(scrollY/sheetHeight);if(before!==after)checkCounts.accepted++};
 document.addEventListener('wheel',e=>{
@@ -216,8 +218,9 @@ document.addEventListener('wheel',e=>{
   if(e.deltaY&&Math.abs(e.deltaY)>=Math.abs(e.deltaX))checkCounts.vertical++;
   if(!e.deltaY&&!e.deltaX)checkCounts.zero++;
   const row={t:Math.round(time),dx:e.deltaX,dy:e.deltaY,gap:Number.isFinite(gap)?Math.round(gap):null,target:e.target.className||e.target.tagName,cancelable:e.cancelable,spentBefore:wheelSpent,moving:!!travelFrame,allowAdjacent:travelAllowsAdjacent,modal:modal.open,acceptedBefore:checkCounts.accepted};
-  queueMicrotask(()=>{row.accepted=checkCounts.accepted>row.acceptedBefore;row.spentAfter=wheelSpent;row.destination=travelIndex;row.y=Math.round(scrollY);checkEvents.push(row);if(checkEvents.length>60)checkEvents.shift();document.querySelector('#scroll-check-status').textContent=`入力 ${checkCounts.input} 回 ／ ページ送り ${checkCounts.accepted} 回`});
+  checkRows.set(e,row);setTimeout(()=>finishCheck(e,false),0);
 },{capture:true,passive:true});
+addEventListener('wheel',e=>finishCheck(e,true),{passive:true});
 document.querySelector('#scroll-check-copy').onclick=async()=>{
  const result=JSON.stringify({page:'FDOA scroll check',revision:'bb697cd',browser:navigator.userAgent,counts:checkCounts,current:{page:at+1,y:Math.round(scrollY),target:travelIndex,spent:wheelSpent,gap:Math.round(performance.now()-lastWheel)},events:checkEvents},null,2);
  try{await navigator.clipboard.writeText(result);document.querySelector('#scroll-check-copy-status').textContent='コピーしました。この会話へ貼り付けてください。'}catch(err){const field=document.createElement('textarea');field.value=result;field.style.cssText='width:100%;height:120px;pointer-events:auto';document.querySelector('#scroll-check').append(field);field.select();document.querySelector('#scroll-check-copy-status').textContent='表示した結果を選択してコピーしてください。'}
