@@ -50,7 +50,7 @@ dialog{position:fixed;inset:0 0 0 auto;margin:0;width:94vw;max-width:none;height
 const works=[['rudan','Rudan','るだん','INTERIOR / 2018','hero.jpg'],['soranomori','Soranomori','空の森 KYUSHU','CLINIC / 2022','soranomori_soranomorikyushu_001.jpg'],['kamakiri','Kamakiri Coffee','KAMAKIRI COFFEE','COFFEE SHOP / 2019','kamakiri_kamakiricoffee001.jpg'],['cltcabin','CLT Cabin','CLT Cabin','ARCHITECTURE / 2022','cltcabin_001_1.jpg'],['inaba','Inaba Udon','因幡うどん 姪浜店','RESTAURANT / 2021','inaba_inabameinohama01.jpg'],['nrtei','Residence N','N邸','RESIDENCE / 2019','nrtei_01.jpg'],["bebe", "BEBE", "べべ", "HAIR SALON / 2025", "bebe_001.jpg"], ["cave", "CLUB CAVE", "CLUB CAVE", "LOUNGE / 2024", "cave_001.jpg"], ["kichan", "2nd Kochang", "2階の黄ちゃん", "BAR / 2021", "kichan_001.jpg"], ["applied", "APPLIED", "APPLIED", "INTERIOR / 2019", "applied_00.jpg"], ["weiss", "WEISS", "WEISS", "GRAPHIC / 2018", "weiss_001.jpg"]];
 const pages=[['home','FDOA','FIVESTAR design office and associates','ARCHITECTURE / INTERIORS','soranomori_soranomorikyushu_001.jpg'],...works,['about','About FDOA','誠実な思考と、丁寧なものづくり。','OUR PRACTICE','cltcabin_001_1.jpg'],['contact','Let’s make<br>something.','一緒につくりましょう。','START A CONVERSATION','']];
 const stage=document.querySelector('.stage'),track=document.querySelector('.track'),modal=document.querySelector('dialog');let at=0,opener=null,galleries={};const galleriesReady=fetch('stack-gallery.json').then(r=>{if(!r.ok)throw new Error('Gallery unavailable');return r.json()}).then(d=>galleries=d).catch(()=>{});
-stage.innerHTML=pages.map((p,i)=>`<section class="sheet ${p[0]}" aria-label="${p[2]}">${p[0]==='contact'?'<div class="contact-art" aria-hidden="true"></div>':''}${p[4]?`<img class="cover" src="assets/${p[4]}" alt="${p[2]}">`:''}${!['about','contact'].includes(p[0])?'<div class="shade"></div>':''}<div class="copy"><div class="label">${p[0]==='home'?'FUKUOKA, JAPAN':String(i+1).padStart(2,'0')+' — '+p[3]}</div><h1>${p[1]}</h1><div class="jp">${p[2]}</div>${p[0]==='about'?'<small>FIVESTAR design office and associates<br>Fukuoka, Japan / Established 2018</small>':''}${p[0]==='home'?'':`<button class="open" data-open="${i}">${p[0]==='about'?'私たちについて':p[0]==='contact'?'ご相談・お問い合わせ':p[0]==='weiss'?'この仕事を見る':'この物件を見る'}<span>↗</span></button>`}</div></section>`).join('');const sheets=[...stage.children];const clamp=x=>Math.max(0,Math.min(1,x));let sheetHeight=0,lastAt=-1,travelFrame=0,travelIndex=null,pendingDirection=0,travelAllowsAdjacent=false;const progressLine=document.querySelector('.line i'),counter=document.querySelector('.index'),kind=document.querySelector('#kind');sheets.forEach((s,i)=>s.style.zIndex=i);
+stage.innerHTML=pages.map((p,i)=>`<section class="sheet ${p[0]}" aria-label="${p[2]}">${p[0]==='contact'?'<div class="contact-art" aria-hidden="true"></div>':''}${p[4]?`<img class="cover" src="assets/${p[4]}" alt="${p[2]}">`:''}${!['about','contact'].includes(p[0])?'<div class="shade"></div>':''}<div class="copy"><div class="label">${p[0]==='home'?'FUKUOKA, JAPAN':String(i+1).padStart(2,'0')+' — '+p[3]}</div><h1>${p[1]}</h1><div class="jp">${p[2]}</div>${p[0]==='about'?'<small>FIVESTAR design office and associates<br>Fukuoka, Japan / Established 2018</small>':''}${p[0]==='home'?'':`<button class="open" data-open="${i}">${p[0]==='about'?'私たちについて':p[0]==='contact'?'ご相談・お問い合わせ':p[0]==='weiss'?'この仕事を見る':'この物件を見る'}<span>↗</span></button>`}</div></section>`).join('');const sheets=[...stage.children];const clamp=x=>Math.max(0,Math.min(1,x));let sheetHeight=0,lastAt=-1,travelFrame=0,travelIndex=null,travelAllowsAdjacent=false,travelBase=0,travelMotions=[];const progressLine=document.querySelector('.line i'),counter=document.querySelector('.index'),kind=document.querySelector('#kind');sheets.forEach((s,i)=>s.style.zIndex=i);
 function measure(){
   const height=sheets[0].getBoundingClientRect().height;
   if(sheetHeight&&Math.abs(height-sheetHeight)>.5){
@@ -86,42 +86,65 @@ function paint(){
 let busy=false;addEventListener('scroll',()=>{if(!busy){busy=true;requestAnimationFrame(()=>{busy=false;paint()})}},{passive:true});addEventListener('resize',measure);new ResizeObserver(measure).observe(sheets[0]);measure();document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{closeWorks();travelTo(sheetHeight*pages.findIndex(p=>p[0]===b.dataset.jump))});document.querySelector('.logo').onclick=e=>{e.preventDefault();closeWorks();travelTo(0)};
 function stopTravel(){
   cancelAnimationFrame(travelFrame);
-  travelFrame=0;travelIndex=null;pendingDirection=0;travelAllowsAdjacent=false;
+  travelFrame=0;travelIndex=null;travelAllowsAdjacent=false;travelMotions=[];
 }
 function finishTravel(){
-  const direction=pendingDirection;
-  stopTravel();paint();
-  if(direction&&!modal.open&&worksList.hidden)adjacentSheet(direction);
+  const target=travelIndex*sheetHeight;
+  stopTravel();scrollTo(0,target);paint();
+}
+function makeMotion(distance){
+  const length=Math.abs(distance);
+  // Every independent movement retains the same distance-based speed envelope.
+  const speed=sheetHeight*4.5/1000,accelDistance=sheetHeight*25/24,brakeDistance=sheetHeight*25/12;
+  const envelope=z=>Math.sin(Math.PI/2*Math.min(1,Math.max(0,z)))**.65;
+  const velocity=x=>speed*Math.min(envelope(x/accelDistance),envelope((length-x)/brakeDistance));
+  // Integrate 1 / speed over distance; cosine spacing resolves the slow ends.
+  const steps=2400,positions=new Float64Array(steps+1),times=new Float64Array(steps+1);
+  for(let j=1;j<=steps;j++){const x=length*(1-Math.cos(Math.PI*j/steps))/2;positions[j]=x;const previous=positions[j-1];times[j]=times[j-1]+(x-previous)/velocity((x+previous)/2)}
+  return {distance,positions,times,duration:times[steps],began:performance.now(),cursor:0};
+}
+function tickTravel(now){
+  let displacement=0,complete=true;
+  for(const motion of travelMotions){
+    const elapsed=Math.min(motion.duration,now-motion.began);
+    if(elapsed>=motion.duration){displacement+=motion.distance;continue}
+    complete=false;
+    const {positions,times}=motion;
+    while(motion.cursor<positions.length-2&&times[motion.cursor+1]<elapsed)motion.cursor++;
+    const j=motion.cursor,fraction=Math.min(1,(elapsed-times[j])/(times[j+1]-times[j]));
+    displacement+=Math.sign(motion.distance)*(positions[j]+(positions[j+1]-positions[j])*fraction);
+  }
+  scrollTo(0,Math.max(0,Math.min((pages.length-1)*sheetHeight,travelBase+displacement)));
+  if(complete)finishTravel();else travelFrame=requestAnimationFrame(tickTravel);
 }
 function travelTo(target,allowAdjacent=false){
   stopTravel();
   if(!allowAdjacent)clearPendingInput();
-  travelAllowsAdjacent=allowAdjacent;travelIndex=Math.max(0,Math.min(pages.length-1,Math.round(target/sheetHeight)));target=travelIndex*sheetHeight;const start=scrollY,distance=target-start,length=Math.abs(distance);if(matchMedia('(prefers-reduced-motion: reduce)').matches||length<1){scrollTo(0,target);finishTravel();return}
-// Speed is a function of absolute travelled/remaining distance, shared by every trip.
-const speed=sheetHeight*4.5/1000,accelDistance=sheetHeight*25/24,brakeDistance=sheetHeight*25/12;
-const envelope=z=>Math.sin(Math.PI/2*Math.min(1,Math.max(0,z)))**.65;
-const velocity=x=>speed*Math.min(envelope(x/accelDistance),envelope((length-x)/brakeDistance));
-// Integrate 1 / speed over distance; cosine spacing resolves the slow ends.
-const steps=2400,positions=new Float64Array(steps+1),times=new Float64Array(steps+1);
-for(let j=1;j<=steps;j++){const x=length*(1-Math.cos(Math.PI*j/steps))/2;positions[j]=x;const previous=positions[j-1];times[j]=times[j-1]+(x-previous)/velocity((x+previous)/2)}
-const duration=times[steps],began=performance.now();let cursor=0;
-function tick(now){const elapsed=Math.min(duration,now-began);while(cursor<steps-1&&times[cursor+1]<elapsed)cursor++;const fraction=Math.min(1,(elapsed-times[cursor])/(times[cursor+1]-times[cursor]));const moved=positions[cursor]+(positions[cursor+1]-positions[cursor])*fraction;scrollTo(0,start+Math.sign(distance)*moved);if(elapsed<duration)travelFrame=requestAnimationFrame(tick);else{scrollTo(0,target);finishTravel()}}travelFrame=requestAnimationFrame(tick)}
-// One new gesture may wait for an adjacent trip to arrive. A menu trip owns its destination.
+  travelAllowsAdjacent=allowAdjacent;travelIndex=Math.max(0,Math.min(pages.length-1,Math.round(target/sheetHeight)));
+  const distance=travelIndex*sheetHeight-scrollY;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||Math.abs(distance)<1){finishTravel();return}
+  travelBase=scrollY;travelMotions=[makeMotion(distance)];travelFrame=requestAnimationFrame(tickTravel);
+}
+// A fresh gesture adds its own movement immediately, while previous movements continue.
 const wheelQuiet=140;
 let lastWheel=-Infinity,wheelSpent=false,wheelPeak=0,lastWheelMagnitude=0,wheelDecayed=false,wheelRiseCount=0,touchGesture=null;
 function clearPendingInput(){
-  pendingDirection=0;travelAllowsAdjacent=false;touchGesture=null;
+  // Opening another surface settles the intended destination and releases every animation.
+  if(travelFrame){const target=travelIndex*sheetHeight;stopTravel();scrollTo(0,target);paint()}
+  travelAllowsAdjacent=false;touchGesture=null;
   wheelSpent=true;lastWheel=performance.now();
   wheelPeak=0;lastWheelMagnitude=0;wheelDecayed=false;wheelRiseCount=0;
 }
 function nativeSurface(target){return modal.open||!!target?.closest?.('#works-list')}
 function adjacentSheet(direction){
-  if(travelFrame){
-    if(travelAllowsAdjacent&&!pendingDirection)pendingDirection=direction;
-    return;
-  }
-  const index=Math.max(0,Math.min(pages.length-1,Math.round(scrollY/sheetHeight)+direction));
-  travelTo(index*sheetHeight,true);
+  if(travelFrame&&!travelAllowsAdjacent)return;
+  const previous=travelIndex??Math.round(scrollY/sheetHeight);
+  const index=Math.max(0,Math.min(pages.length-1,previous+direction));
+  if(index===previous)return;
+  if(!travelFrame){travelTo(index*sheetHeight,true);return}
+  travelIndex=index;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){finishTravel();return}
+  travelMotions.push(makeMotion((index-previous)*sheetHeight));
 }
 addEventListener('wheel',e=>{
   if(e.ctrlKey||nativeSurface(e.target))return;
