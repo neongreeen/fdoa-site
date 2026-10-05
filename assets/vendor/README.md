@@ -15,3 +15,7 @@ scroll-embla.html now uses embla-wheel-native-002/plugin.js: plugin 8.1.0 bundle
 ## Comparison 003
 
 Only settling speed changes: API motion and drag-release use duration 40 instead of 35. Wheel input handling is unchanged from 002. Physical PC repeated swipes remain unresolved; automated input did not reproduce the user’s failure. Await the failing browser’s copied input trace before changing gesture detection again.
+
+## Comparison 004
+
+Motion and input handling are unchanged from 003. Diagnostics now append raw wheel input before taking a guarded engine snapshot, tolerate non-Element targets, and include elapsed page time, input counts and snapshot errors. The visible counter distinguishes missing browser input from missing carousel response. Counts and events remain local until the user copies them.
