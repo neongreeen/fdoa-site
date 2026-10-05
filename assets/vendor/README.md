@@ -19,3 +19,7 @@ Only settling speed changes: API motion and drag-release use duration 40 instead
 ## Comparison 004
 
 Motion and input handling are unchanged from 003. Diagnostics now append raw wheel input before taking a guarded engine snapshot, tolerate non-Element targets, and include elapsed page time, input counts and snapshot errors. The visible counter distinguishes missing browser input from missing carousel response. Counts and events remain local until the user copies them.
+
+## Comparison 005
+
+Real Safari 004 input reproduced a synthetic wheel drag clamped for about 4.5 seconds and a spurious tail restart. Wheel navigation now uses assets/wheel-intent.js to convert a pulse into one Embla scrollTo call. A 60 ms distance window tolerates coalesced packets; sustained decay followed by renewed acceleration rearms the next pulse, including during animation. Wheel handling stays on the stable window and excludes zoom, the open menu and modal. No animation-completion lock. Actual touch dragging and duration 40 remain on Embla. The older plugin bundles remain archived here but are no longer loaded by this page. Physical-device acceptance remains pending; trace replay is not a claim of universal hardware success.

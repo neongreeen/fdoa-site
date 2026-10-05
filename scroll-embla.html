@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">  <title>FDOA — Embla 確認版 004</title><meta name="robots" content="noindex,nofollow">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">  <title>FDOA — Embla 確認版 005</title><meta name="robots" content="noindex,nofollow">
   <meta name="description" content="FDOA（FIVESTAR design office and associates）は2018年設立、福岡のデザイン事務所。インテリア・プロダクト・グラフィック・建築を横断し、椅子一脚から店舗一棟まで、場所・素材・人に根ざしたデザインを手がけます。">
   <link rel="canonical" href="https://fdoa.jp/">
   <meta property="og:type" content="website">
@@ -47,7 +47,7 @@ dialog{position:fixed;inset:0 0 0 auto;margin:0;width:94vw;max-width:none;height
 
 .contact-form{display:flex;flex-direction:column;gap:22px;max-width:520px}.field{display:flex;flex-direction:column;gap:8px}.field-label{font:300 10px var(--font-en);letter-spacing:.15em}.contact-form input,.contact-form textarea{font:300 14px var(--font-ja);color:inherit;background:#ffffff50;border:1px solid #30382f33;border-radius:2px;padding:12px 14px}.contact-form input:focus,.contact-form textarea:focus{outline:1px solid #30382f;background:#ffffff80}.contact-form textarea{resize:vertical}.contact-submit{align-self:flex-start;font-size:11px;letter-spacing:.15em;border:1px solid #30382f66;padding:13px 30px}.contact-submit:disabled{opacity:.5;cursor:wait}.contact-form .form-status{font-size:12px;line-height:1.8;min-height:1em;margin:0}.office .social-link{display:inline-block;font-size:12px;margin-top:35px}
 .comparison-badge #input-status{display:block;margin-top:4px}.comparison-badge button{margin-left:12px;padding:0;border-bottom:1px solid #faf8ef88;font-size:inherit;pointer-events:auto}.comparison-badge{position:fixed;z-index:25;top:90px;right:4%;padding:7px 10px;background:#20251fcc;color:#faf8ef;font:300 10px var(--font-ja);letter-spacing:.04em;pointer-events:none}@media(max-width:650px){.comparison-badge{top:75px;right:6%;font-size:9px}}
-</style></head><body><header class="mast"><a class="logo" href="#" aria-label="一覧の最初へ">FDOA</a><nav><div class="works-nav"><button id="works-toggle" aria-expanded="false" aria-controls="works-list">WORKS</button><div id="works-list" hidden aria-label="物件一覧"></div></div><button data-jump="about">ABOUT</button><button data-jump="contact">CONTACT</button></nav></header><main class="track embla"><div class="stage embla__container"></div></main><footer class="bottom"><span id="kind">SELECTED WORKS</span><div class="line"><i></i></div><span class="index"></span><span>SCROLL ↓</span></footer><dialog aria-label="ページ詳細"><header class="insidebar"><button class="back close-detail" aria-label="一覧へ戻る"><span aria-hidden="true"></span></button><span class="crumb"></span></header><div id="inner"></div></dialog><aside class="comparison-badge">Embla 確認版 004<span id="input-status">スクロール受信 0 / ポインター 0</span><button id="copy-input-log" type="button">操作記録をコピー</button></aside><script src="assets/vendor/embla-8.6.0/embla-carousel.umd.js"></script><script src="assets/vendor/embla-wheel-native-002/plugin.js"></script><script>
+</style></head><body><header class="mast"><a class="logo" href="#" aria-label="一覧の最初へ">FDOA</a><nav><div class="works-nav"><button id="works-toggle" aria-expanded="false" aria-controls="works-list">WORKS</button><div id="works-list" hidden aria-label="物件一覧"></div></div><button data-jump="about">ABOUT</button><button data-jump="contact">CONTACT</button></nav></header><main class="track embla"><div class="stage embla__container"></div></main><footer class="bottom"><span id="kind">SELECTED WORKS</span><div class="line"><i></i></div><span class="index"></span><span>SCROLL ↓</span></footer><dialog aria-label="ページ詳細"><header class="insidebar"><button class="back close-detail" aria-label="一覧へ戻る"><span aria-hidden="true"></span></button><span class="crumb"></span></header><div id="inner"></div></dialog><aside class="comparison-badge">Embla 確認版 005<span id="input-status">スクロール受信 0 / ポインター 0</span><button id="copy-input-log" type="button">操作記録をコピー</button></aside><script src="assets/vendor/embla-8.6.0/embla-carousel.umd.js"></script><script src="assets/wheel-intent.js?v=005"></script><script>
 const works=[
   ["bebe", "BEBE", "べべ", "HAIR SALON / 2025", "bebe_001.jpg"],
   ["cave", "CLUB CAVE", "CLUB CAVE", "LOUNGE / 2024", "cave_001.jpg"],
@@ -91,7 +91,7 @@ const embla=EmblaCarousel(track,{
   containScroll:'keepSnaps',watchFocus:false,
   watchDrag:()=>!modal.open&&worksList.hidden,
   duration:matchMedia('(prefers-reduced-motion: reduce)').matches?0:40
-},[EmblaCarouselWheelGestures({forceWheelAxis:'y',target:track})]);
+});
 embla.on('select',updateActive).on('reInit',updateActive);
 // Embla v8 applies its own 15–25 duration on drag release; the option above
 // only affects API navigation. Keep direct touch tracking, slow the settling.
@@ -103,6 +103,10 @@ embla.on('pointerUp',api=>{
 const inputLog=[],inputStarted=performance.now();
 const inputCounts={wheel:0,mousewheel:0,pointermove:0,pointerdown:0,touchstart:0,touchmove:0,snapshotErrors:0};
 const inputStatus=document.querySelector('#input-status');
+if(new URLSearchParams(location.search).has('review')){
+  document.querySelector('.comparison-badge').hidden=true;
+  document.title='FDOA — FIVESTAR design office and associates';
+}
 let lastPointer=null,diagnosticFrame=0;
 function updateInputStatus(){
   if(diagnosticFrame)return;
@@ -142,10 +146,22 @@ for(const type of ['mousewheel','pointermove','pointerdown','touchstart','touchm
   },{capture:true,passive:true});
 }
 for(const type of ['pointerDown','pointerUp','select','settle','reInit'])embla.on(type,()=>recordInput(type));
+const wheelIntent=FdoaWheelIntent();
+addEventListener('wheel',event=>{
+  if(event.ctrlKey||event.metaKey||modal.open||!worksList.hidden)return;
+  if(Math.abs(event.deltaY)<=Math.abs(event.deltaX))return;
+  event.preventDefault();
+  const scale=event.deltaMode===1?16:event.deltaMode===2?innerHeight:1;
+  const direction=wheelIntent.feed(event.deltaY*scale,performance.now());
+  if(!direction)return;
+  const next=Math.max(0,Math.min(pages.length-1,embla.selectedScrollSnap()+direction));
+  recordInput('wheelIntent',{direction,next});
+  embla.scrollTo(next);
+},{passive:false});
 recordInput('ready');
 document.querySelector('#copy-input-log').onclick=async event=>{
   const button=event.currentTarget;
-  const payload={version:'embla-004',pageAgeMs:Math.round(performance.now()-inputStarted),
+  const payload={version:'embla-005',pageAgeMs:Math.round(performance.now()-inputStarted),
     browser:navigator.userAgent,viewport:[innerWidth,innerHeight],focused:document.hasFocus(),
     visibility:document.visibilityState,counts:{...inputCounts},lastPointer,events:inputLog};
   try{await navigator.clipboard.writeText(JSON.stringify(payload));button.textContent='コピーしました';}
