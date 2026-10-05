@@ -46,7 +46,7 @@ dialog{position:fixed;inset:0 0 0 auto;margin:0;width:94vw;max-width:none;height
 @media(max-width:760px){.project-layout{grid-template-columns:1fr;padding:25px 7% 45px;gap:30px}.project-info{position:static;max-height:none;overflow:visible;grid-row:1}.project-info h2{font-size:34px;margin-top:15px}.project-info .project-name{margin-bottom:18px}.project-info .project-description{font-size:11px;line-height:2;margin-bottom:20px}.project-info dl{padding-top:15px;gap:8px}.project-layout .gallery{gap:28px}.project-layout .gallery img{max-height:62svh}}
 
 .contact-form{display:flex;flex-direction:column;gap:22px;max-width:520px}.field{display:flex;flex-direction:column;gap:8px}.field-label{font:300 10px var(--font-en);letter-spacing:.15em}.contact-form input,.contact-form textarea{font:300 14px var(--font-ja);color:inherit;background:#ffffff50;border:1px solid #30382f33;border-radius:2px;padding:12px 14px}.contact-form input:focus,.contact-form textarea:focus{outline:1px solid #30382f;background:#ffffff80}.contact-form textarea{resize:vertical}.contact-submit{align-self:flex-start;font-size:11px;letter-spacing:.15em;border:1px solid #30382f66;padding:13px 30px}.contact-submit:disabled{opacity:.5;cursor:wait}.contact-form .form-status{font-size:12px;line-height:1.8;min-height:1em;margin:0}.office .social-link{display:inline-block;font-size:12px;margin-top:35px}
-</style></head><body><header class="mast"><a class="logo" href="#" aria-label="一覧の最初へ">FDOA</a><nav><div class="works-nav"><button id="works-toggle" aria-expanded="false" aria-controls="works-list">WORKS</button><div id="works-list" hidden aria-label="物件一覧"></div></div><button data-jump="about">ABOUT</button><button data-jump="contact">CONTACT</button></nav></header><main class="track"><div class="stage"></div></main><footer class="bottom"><span id="kind">SELECTED WORKS</span><div class="line"><i></i></div><span class="index"></span><span>SCROLL ↓</span></footer><dialog aria-label="ページ詳細"><header class="insidebar"><button class="back close-detail" aria-label="一覧へ戻る"><span aria-hidden="true"></span></button><span class="crumb"></span></header><div id="inner"></div></dialog><script>
+</style></head><body><header class="mast"><a class="logo" href="#" aria-label="一覧の最初へ">FDOA</a><nav><div class="works-nav"><button id="works-toggle" aria-expanded="false" aria-controls="works-list">WORKS</button><div id="works-list" hidden aria-label="物件一覧"></div></div><button data-jump="about">ABOUT</button><button data-jump="contact">CONTACT</button></nav></header><main class="track"><div class="stage"></div></main><footer class="bottom"><span id="kind">SELECTED WORKS</span><div class="line"><i></i></div><span class="index"></span><span>SCROLL ↓</span></footer><dialog aria-label="ページ詳細"><header class="insidebar"><button class="back close-detail" aria-label="一覧へ戻る"><span aria-hidden="true"></span></button><span class="crumb"></span></header><div id="inner"></div></dialog><script src="assets/wheel-intent.js?v=005"></script><script>
 const works=[
   ["bebe", "BEBE", "べべ", "HAIR SALON / 2025", "bebe_001.jpg"],
   ["cave", "CLUB CAVE", "CLUB CAVE", "LOUNGE / 2024", "cave_001.jpg"],
@@ -154,13 +154,13 @@ function travelTo(target,allowAdjacent=false){
   travelBase=deckPosition;travelMotions=[makeMotion(distance)];travelFrame=requestAnimationFrame(tickTravel);
 }
 // A fresh gesture adds its own movement immediately, while previous movements continue.
-const wheelQuiet=180;
-let lastWheel=-Infinity,wheelSpent=false,touchGesture=null;
+const wheelIntent=FdoaWheelIntent();
+let wheelIgnoreUntil=0,touchGesture=null;
 function clearPendingInput(){
   // Opening another surface settles the intended destination and releases every animation.
   if(travelFrame){const target=travelIndex*sheetHeight;stopTravel();setDeckPosition(target)}
   travelAllowsAdjacent=false;touchGesture=null;
-  wheelSpent=true;lastWheel=performance.now();
+  wheelIntent.reset();wheelIgnoreUntil=performance.now()+180;
 }
 function nativeSurface(target){return modal.open||!!target?.closest?.('#works-list')}
 function adjacentSheet(direction){
@@ -174,17 +174,16 @@ function adjacentSheet(direction){
   travelMotions.push(makeMotion((index-previous)*sheetHeight));
 }
 addEventListener('wheel',e=>{
-  if(e.ctrlKey||nativeSurface(e.target))return;
-  if(e.cancelable)e.preventDefault();
-  // Only vertical input belongs to this gesture. Zero/horizontal noise must not
-  // extend the previous vertical burst indefinitely at an unchanged pointer.
+  if(e.ctrlKey||e.metaKey||nativeSurface(e.target))return;
   if(!e.deltaY||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;
+  if(e.cancelable)e.preventDefault();
   const now=performance.now();
-  if(now-lastWheel>wheelQuiet)wheelSpent=false;
-  lastWheel=now;
-  if(wheelSpent)return;
-  wheelSpent=true;
-  adjacentSheet(Math.sign(e.deltaY));
+  const scale=e.deltaMode===1?16:e.deltaMode===2?sheetHeight:1;
+  const direction=wheelIntent.feed(e.deltaY*scale,now);
+  // Surface changes briefly absorb the old gesture; ordinary swipes never
+  // wait for animation completion or for the previous momentum to fall silent.
+  if(now<wheelIgnoreUntil||!direction)return;
+  adjacentSheet(direction);
 },{capture:true,passive:false});
 addEventListener('touchstart',e=>{
   touchGesture=e.touches.length===1&&!nativeSurface(e.target)
