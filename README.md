@@ -20,10 +20,16 @@ Browser checks cover discrete and continuous wheel inputs, keyboard input, exact
 
 ## 2026-10-05 consecutive gesture responsiveness
 
-The first responsiveness revision accepted a new touch gesture during an adjacent transition and queued one move on arrival. That queue is superseded by the overlapping movement revision below. The wheel quiet gap is reduced from 280ms to 140ms; two substantial rises following a decaying tail may also indicate a new push. This is a heuristic, not a native gesture-phase signal. Menu navigation, hash changes and modal opening clear pending intent.
+The first responsiveness revision accepted a new touch gesture during an adjacent transition and queued one move on arrival. That queue is superseded by the overlapping movement revision below. That revision reduced the wheel quiet gap from 280ms to 140ms and treated renewed force as a new push. The force-based rule was removed in the PC stability correction below because one uneven stroke could trigger twice. Menu navigation, hash changes and modal opening clear pending intent.
 
 Whole-sheet `inert` toggling is removed to avoid invalidating a wheel target while it may still be latched by a browser. Inactive sheets remain hidden from accessibility and their controls leave the tab order. Movement curves are unchanged. The prior version is preserved at commit `bedaaf408195a3e683ef2dd3fdc18929df57882f`.
 
 ## 2026-10-05 overlapping swipe movement
 
 New consecutive gestures start their movement immediately, adding to the existing movement instead of waiting at each sheet. Each component keeps the existing distance-based acceleration and deceleration. One gesture still means one sheet; gesture-burst filtering prevents momentum from creating extra steps. The final destination stays on a sheet boundary. Single-input movement and project names are unchanged. The prior version is preserved at `74c68e73bb48ed9cb1e8bcfc004aaf5c3a710dbc`.
+
+## 2026-10-05 PC gesture stability
+
+Wheel bursts now separate only after 180ms without wheel input, independently of animation completion. Every tail event extends the same burst; changing magnitude does not create a second gesture. Distinct bursts still overlap. The stage is the stable pointer target beneath the pictures, while only active sheet buttons receive clicks. This avoids changing the target beneath a stationary pointer as sheets move.
+
+Distance curves are cached, active control updates affect only the previous/current sheets, and animation painting uses one frame loop. Elapsed time is clamped to zero when a frame timestamp predates a newly added motion. The existing movement curves and touch behavior are retained. Physical trackpad gesture boundaries cannot be identified perfectly from wheel events; real-device feel remains subject to verification. The previous release is retained at `a08f1a088679d9a66bf1ccbecb89e07fbc56b8a8`.
