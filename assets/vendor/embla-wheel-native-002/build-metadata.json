@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-05",
+  "versions": {
+    "embla-carousel-wheel-gestures": "8.1.0",
+    "wheel-gestures": "2.3.0",
+    "esbuild": "0.25.10"
+  },
+  "entry": "import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';\nwindow.EmblaCarouselWheelGestures = WheelGesturesPlugin;\n",
+  "command": "esbuild entry.js --bundle --format=iife --define:process.env.NODE_ENV=\"production\" --metafile=build-metafile.json --outfile=plugin.js",
+  "sha256": "242d41d561d1803029c99b60cdbbc0af93abbb314491bb939eaf106c0b5d0b48",
+  "dependencies": {
+    "inputs": {
+      "node_modules/wheel-gestures/dist/wheel-gestures.esm.js": {
+        "bytes": 14960,
+        "imports": [],
+        "format": "esm"
+      },
+      "node_modules/embla-carousel-wheel-gestures/dist/embla-carousel-wheel-gestures.esm.js": {
+        "bytes": 8507,
+        "imports": [
+          {
+            "path": "node_modules/wheel-gestures/dist/wheel-gestures.esm.js",
+            "kind": "import-statement",
+            "original": "wheel-gestures"
+          }
+        ],
+        "format": "esm"
+      },
+      "entry.js": {
+        "bytes": 126,
+        "imports": [
+          {
+            "path": "node_modules/embla-carousel-wheel-gestures/dist/embla-carousel-wheel-gestures.esm.js",
+            "kind": "import-statement",
+            "original": "embla-carousel-wheel-gestures"
+          }
+        ],
+        "format": "cjs"
+      }
+    },
+    "outputs": {
+      "../../fdoa-site/assets/vendor/embla-wheel-native-002/plugin.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "entry.js",
+        "inputs": {
+          "node_modules/wheel-gestures/dist/wheel-gestures.esm.js": {
+            "bytesInOutput": 13941
+          },
+          "node_modules/embla-carousel-wheel-gestures/dist/embla-carousel-wheel-gestures.esm.js": {
+            "bytesInOutput": 8413
+          },
+          "entry.js": {
+            "bytesInOutput": 177
+          }
+        },
+        "bytes": 23075
+      }
+    }
+  }
+}
