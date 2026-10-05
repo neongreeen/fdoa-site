@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDOA — FIVESTAR design office and associates</title>
+  <meta name="description" content="FDOA（FIVESTAR design office and associates）は2018年設立、福岡のデザイン事務所。インテリア・プロダクト・グラフィック・建築を横断し、椅子一脚から店舗一棟まで、場所・素材・人に根ざしたデザインを手がけます。">
+  <link rel="canonical" href="https://fdoa.jp/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="FDOA">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:title" content="FDOA — FIVESTAR design office and associates">
+  <meta property="og:description" content="FDOA（FIVESTAR design office and associates）は2018年設立、福岡のデザイン事務所。インテリア・プロダクト・グラフィック・建築を横断し、椅子一脚から店舗一棟まで、場所・素材・人に根ざしたデザインを手がけます。">
+  <meta property="og:url" content="https://fdoa.jp/">
+  <meta property="og:image" content="https://fdoa.jp/assets/works/soranomori_soranomorikyushu_002.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FDOA — FIVESTAR design office and associates">
+  <meta name="twitter:description" content="FDOA（FIVESTAR design office and associates）は2018年設立、福岡のデザイン事務所。インテリア・プロダクト・グラフィック・建築を横断し、椅子一脚から店舗一棟まで、場所・素材・人に根ざしたデザインを手がけます。">
+  <meta name="twitter:image" content="https://fdoa.jp/assets/works/soranomori_soranomorikyushu_002.jpg">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #f7f4ef;
+      --beige:   #f0e9de;
+      --blush:   #f5ebe6;
+      --peach:   #eeddd4;
+      --ink:     #2a2520;
+      --muted:   #8c7f76;
+      --rule:    rgba(42,37,32,0.08);
+      --font-en: 'acumin-pro', 'Helvetica Neue', Arial, sans-serif;
+      --font-ja: 'M PLUS 1', 'Hiragino Kaku Gothic ProN', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      color: var(--ink);
+      font-family: var(--font-en);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background: linear-gradient(
+        to bottom,
+        var(--cream)   0%,
+        var(--blush)  20%,
+        var(--beige)  45%,
+        var(--peach)  65%,
+        var(--blush)  82%,
+        var(--cream) 100%
+      );
+      background-size: 100% 300%;
+      background-position: 50% 0%;
+      animation: gradientDrift 24s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientDrift {
+      0%   { background-position: 50% 0%; }
+      100% { background-position: 50% 100%; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: transparent;
+    }
+
+    .nav-logo {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 1; }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    section {
+      padding: 120px 48px;
+      background: transparent;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px;
+      position: relative;
+    }
+
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/works/soranomori_soranomorikyushu_002.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.28;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 78%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 78%, transparent 100%);
+    }
+
+    @media (min-width: 641px) {
+      .hero-bg-img { opacity: 0.22; }
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-label {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(40px, 7vw, 96px);
+      font-weight: 100;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 28px;
+      color: var(--ink);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-en);
+      font-size: clamp(17px, 2.2vw, 28px);
+      font-weight: 100;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      max-width: 560px;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle-ja {
+      display: block;
+      font-family: var(--font-ja);
+      font-size: clamp(13px, 1.5vw, 18px);
+      font-weight: 200;
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      max-width: 560px;
+      margin-top: 14px;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      right: 48px;
+      bottom: 80px;
+      writing-mode: vertical-rl;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.45;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 60px;
+      background: var(--muted);
+      opacity: 0.35;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.6;
+      margin-bottom: 64px;
+    }
+
+    /* ── WORKS ── */
+    .works-header {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 64px;
+    }
+
+    .works-title {
+      font-size: clamp(18px, 2.5vw, 30px);
+      font-weight: 100;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .work-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 16/10;
+      background: rgba(240,233,222,0.6);
+    }
+
+    .work-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .work-card:hover .work-card-img { transform: scale(1.03); }
+
+    .work-card-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 24px;
+      background: linear-gradient(to top, rgba(247,244,239,0.88) 0%, transparent 100%);
+      transform: translateY(6px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .work-card:hover .work-card-info { transform: translateY(0); opacity: 1; }
+
+    .work-name {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .work-meta {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    /* ── ABOUT ── */
+    .about-inner { max-width: 860px; }
+
+    .about-heading {
+      font-family: var(--font-en);
+      font-size: clamp(17px, 2.2vw, 28px);
+      font-weight: 100;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .about-heading-ja {
+      display: block;
+      font-family: var(--font-ja);
+      font-size: clamp(13px, 1.5vw, 18px);
+      font-weight: 200;
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-top: 16px;
+      margin-bottom: 48px;
+    }
+
+    .bilingual-block {
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .about-body {
+      font-family: var(--font-en);
+      font-size: 15px;
+      line-height: 1.95;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .about-body-ja {
+      font-family: var(--font-ja);
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 2.1;
+      color: var(--muted);
+      opacity: 0.85;
+      margin-bottom: 14px;
+    }
+
+    .about-ja-group {
+      padding-top: 28px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 64px;
+      margin-top: 64px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 100;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── CONTACT ── */
+    #works { padding-bottom: 0; }
+    #contact { border-top: 1px solid var(--rule); }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .contact-heading {
+      font-family: var(--font-en);
+      font-size: clamp(18px, 2.5vw, 30px);
+      font-weight: 100;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .contact-heading-ja {
+      font-family: var(--font-ja);
+      font-size: clamp(14px, 1.6vw, 19px);
+      font-weight: 200;
+      line-height: 1.6;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .contact-sub {
+      font-family: var(--font-en);
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 380px;
+      margin-bottom: 10px;
+    }
+
+    .contact-sub-ja {
+      font-family: var(--font-ja);
+      font-size: 12.5px;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--muted);
+      opacity: 0.85;
+      max-width: 380px;
+      padding-top: 10px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .contact-email-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+
+    .contact-email-link {
+      font-size: 18px;
+      font-weight: 200;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(42,37,32,0.15);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .contact-email-link:hover { border-color: var(--ink); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 22px; max-width: 420px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field-label {
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); opacity: 0.7;
+    }
+    .contact-form input, .contact-form textarea {
+      font-family: var(--font-ja);
+      font-size: 14px; font-weight: 300; color: var(--ink);
+      background: rgba(255,255,255,0.4);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 12px 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none; border-color: var(--ink); background: rgba(255,255,255,0.7);
+    }
+    .contact-form textarea { resize: vertical; }
+    .contact-submit {
+      align-self: flex-start;
+      font-family: var(--font-en);
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); opacity: 0.85; background: none;
+      border: 1px solid rgba(140,127,118,0.45);
+      border-radius: 2px;
+      padding: 13px 30px; margin-top: 6px; cursor: pointer;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+    }
+    .contact-submit:hover { background: var(--muted); border-color: var(--muted); color: var(--cream); opacity: 1; }
+    .form-status {
+      font-family: var(--font-ja);
+      font-size: 12px; line-height: 1.7; color: var(--muted); min-height: 1em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 40px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: transparent;
+    }
+
+    .footer-logo {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.55;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      section { padding: 80px 24px; }
+      #hero { padding: 0 24px 60px; }
+      .works-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-inner { grid-template-columns: 1fr; gap: 56px; }
+      .about-stats { gap: 40px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .works-header { flex-direction: column; gap: 20px; }
+    }
+
+    @media (max-width: 768px) {
+      .work-card { aspect-ratio: 16/7; }
+    }
+
+    @media (max-width: 600px) {
+      .works-grid { grid-template-columns: 1fr; }
+      .nav-links { display: flex; gap: 16px; }
+      .nav-links a { font-size: 10px; letter-spacing: 0.1em; opacity: 0.6; }
+    }
+      @media (max-width: 640px) {
+      :root { --muted: #6b5f55; }
+      .hero-bg-img { inset: auto; top: 0; left: 0; right: 0; height: 75vh; }
+      .contact-sub, .about-body, .project-description { font-size: 13px; }
+      .contact-sub-ja, .about-body-ja, .project-description-ja { font-size: 12px; line-height: 1.9; }
+      .hero-subtitle-ja, .about-heading-ja, .contact-heading-ja { font-size: 14px; }
+      .work-name { font-size: 13px; }
+    }
+    .nav-toggle { position:absolute; right:72px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center; gap:5px; height:20px; background:none; border:none; cursor:pointer; padding:0; z-index:101; width:22px; opacity:0; pointer-events:none; transition:opacity .4s ease; }
+    .nav-logo, .nav-links { transition:opacity .4s ease; }
+    @media (max-width:900px){ .nav-toggle{ right:40px; } }
+    .nav-toggle span { display:block; height:1.5px; width:100%; background:#c4b393; transition:transform .3s ease, opacity .3s ease; }
+    nav.scrolled .nav-logo, nav.scrolled .nav-links { opacity:0; pointer-events:none; }
+    nav.scrolled .nav-toggle { opacity:1; pointer-events:auto; }
+    .nav-toggle.open span { background:var(--ink); box-shadow:none; }
+    .nav-toggle.open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2){ opacity:0; }
+    .nav-toggle.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+    .nav-overlay { position:fixed; inset:0; z-index:99; background:rgba(240,233,222,0.65); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; opacity:0; pointer-events:none; transition:opacity .35s ease; }
+    .nav-overlay.open { opacity:1; pointer-events:auto; }
+    .nav-overlay a { font-family:var(--font-en); font-size:15px; font-weight:300; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink); text-decoration:none; opacity:0.85; }
+    .nav-overlay a:hover { opacity:1; }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100;200;300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/qii6ndg.css">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#hero">FDOA</a>
+    <ul class="nav-links">
+      <li><a href="#works">Works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+      <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-overlay" id="navOverlay">
+    <a href="#hero">TOP</a>
+    <a href="#works">Works</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <section id="hero">
+    <div class="hero-bg-img"></div>
+    <div class="hero-content">
+      <p class="hero-label">Fukuoka, Japan — Est. 2018</p>
+      <h1 class="hero-title">FDOA</h1>
+      <p class="hero-subtitle">
+        Design rooted<br>in place, material, and people.
+      </p>
+      <p class="hero-subtitle-ja">
+        場所、素材、そして人に根ざしたデザインを。
+      </p>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <section id="works">
+    <p class="section-label">Works</p>
+    <div class="works-grid">
+      
+      
+      
+      <a href="works/bebe.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/bebe_001.jpg" alt="bebe">
+          <div class="work-card-info"><p class="work-name"><span translate="no">べべ</span> — bebe</p><p class="work-meta">Fukuoka · 2025</p></div>
+        </div>
+      </a>
+      <a href="works/cave.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/cave_001.jpg" alt="Club Cave">
+          <div class="work-card-info"><p class="work-name">CLUB CAVE</p><p class="work-meta">Fukuoka · 2024</p></div>
+        </div>
+      </a>
+      <a href="works/soranomori.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/soranomori_soranomorikyushu_001.jpg" alt="soranomori">
+          <div class="work-card-info"><p class="work-name"><span translate="no">空の森KYUSHU</span> — SORA no MORI KYUSHU</p><p class="work-meta">Fukuoka · 2022</p></div>
+        </div>
+      </a>
+      <a href="works/cltcabin.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/cltcabin_008_1.jpg" alt="CLT Cabin">
+          <div class="work-card-info"><p class="work-name">CLT CABIN</p><p class="work-meta">Fukuoka · 2022</p></div>
+        </div>
+      </a>
+      <a href="works/kichan.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/kichan_001.jpg" alt="kichan">
+          <div class="work-card-info"><p class="work-name"><span translate="no">2階の黄ちゃん</span> — Kochang on the Second Floor</p><p class="work-meta">Fukuoka · 2021</p></div>
+        </div>
+      </a>
+      <a href="works/inaba.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/inaba_inabameinohama01.jpg" alt="inaba">
+          <div class="work-card-info"><p class="work-name"><span translate="no">因幡うどん</span> — Inaba Udon</p><p class="work-meta">Fukuoka · 2021</p></div>
+        </div>
+      </a>
+      <a href="works/kamakiri.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/kamakiri_kamakiricoffee001.jpg" alt="Kamakiri Coffee">
+          <div class="work-card-info"><p class="work-name">KAMAKIRI COFFEE</p><p class="work-meta">Fukuoka · 2019</p></div>
+        </div>
+      </a>
+      <a href="works/applied.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/applied_00.jpg" alt="Applied">
+          <div class="work-card-info"><p class="work-name">APPLIED</p><p class="work-meta">Fukuoka · 2019</p></div>
+        </div>
+      </a>
+      <a href="works/weiss.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/weiss_001.jpg" alt="Weiss">
+          <div class="work-card-info"><p class="work-name">WEISS</p><p class="work-meta">Fukuoka · 2018</p></div>
+        </div>
+      </a>
+      <a href="works/nrtei.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/nrtei_01.jpg" alt="Residence N">
+          <div class="work-card-info"><p class="work-name"><span translate="no">N邸</span> — Residence N</p><p class="work-meta">Fukuoka · 2019</p></div>
+        </div>
+      </a>
+      <a href="works/rudan.html" style="text-decoration:none;display:block;color:inherit;">
+        <div class="work-card"><img class="work-card-img" src="assets/works/rudan_0L4A9758-1.jpg" alt="rudan">
+          <div class="work-card-info"><p class="work-name"><span translate="no">るだん</span> — Rudan</p><p class="work-meta">Fukuoka · 2018</p></div>
+        </div>
+      </a>
+    
+    
+    
+    </div>
+      <div class="about-stats">
+        <div><p class="stat-number">8+</p><p class="stat-label">Years of practice</p></div>
+        <div><p class="stat-number">40+</p><p class="stat-label">Projects completed</p></div>
+      </div>
+  </section>
+
+  <section id="about">
+    <p class="section-label">About</p>
+    <div class="about-inner">
+      <h2 class="about-heading">
+        Design guided<br>by honest thinking and careful making.
+        <span class="about-heading-ja">誠実な思考と、丁寧なものづくりに導かれたデザインを。</span>
+      </h2>
+
+      <div class="bilingual-block">
+        <p class="about-body">FDOA (FIVESTAR design office and associates) is a Fukuoka-based design practice founded in 2018. We work across interior, product, graphic, and architectural scales — from a single chair to a complete restaurant, from a logotype to a building facade.</p>
+        <p class="about-body">Our process begins with listening. Every project carries its own constraints, desires, and stories. We translate these into spaces and objects that feel both thoughtfully considered and effortless — so that everything comes together into a comfortable, pleasant experience.</p>
+        <p class="about-body">We design shops, homes, furniture, products, and more — without limiting ourselves to any single field, adapting flexibly to projects large and small.</p>
+      </div>
+
+      <div class="bilingual-block about-ja-group">
+        <p class="about-body-ja">FDOA（FIVESTAR design office and associates）は、2018年に福岡で設立したデザイン事務所です。インテリア、プロダクト、グラフィック、建築と、椅子一脚から店舗一棟まで、幅広いスケールで設計に取り組んでいます。</p>
+        <p class="about-body-ja">プロセスは、いつも聞くことから始まります。すべてのプロジェクトには固有の制約、要望、そして物語があります。それらを、思慮深く考察しながら自然体に感じられる空間やものへと翻訳する。心地よい体験につながるように。</p>
+        <p class="about-body-ja">店舗、住宅、家具、プロダクトなど、ジャンルにとらわれず幅広く手がけています。大きなものから小さなものまで、柔軟に対応します。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-inner">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="contact-heading">Let's work<br>together.</h2>
+        <p class="contact-heading-ja">一緒につくりましょう。</p>
+        <p class="contact-sub">We welcome inquiries from clients and collaborators worldwide. Tell us about your project and we'll be in touch.</p>
+        <p class="contact-sub-ja">国内外を問わず、クライアント・コラボレーターからのお問い合わせをお待ちしています。プロジェクトについてお気軽にご連絡ください。</p>
+        <p style="margin-top:36px; font-size:11px; color:var(--muted); letter-spacing:0.12em;">Fukuoka, Japan</p>
+      </div>
+      <div class="contact-form-wrapper">
+        <form id="contact-form" class="contact-form" action="https://formspree.io/f/xzdqynqj" method="POST">
+          <label class="field">
+            <span class="field-label">Name / お名前</span>
+            <input type="text" name="name" required>
+          </label>
+          <label class="field">
+            <span class="field-label">Email / メール</span>
+            <input type="email" name="email" required>
+          </label>
+          <label class="field">
+            <span class="field-label">Message / メッセージ</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button type="submit" class="contact-submit">Send / 送信</button>
+          <p id="form-status" class="form-status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/fdoa.jp/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 FDOA. All rights reserved.</span>
+  </footer>
+
+  <script>(function(){
+    var form=document.getElementById('contact-form');
+    var status=document.getElementById('form-status');
+    if(!form) return;
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      status.textContent='Sending… / 送信中…';
+      try{
+        var res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+        if(res.ok){ form.reset(); status.textContent='Thank you. We will be in touch. ／ ありがとうございます。追ってご連絡します。'; }
+        else { status.textContent='Sending failed. Please try again. ／ 送信に失敗しました。時間をおいて再度お試しください。'; }
+      }catch(err){ status.textContent='Sending failed. Please try again. ／ 送信に失敗しました。時間をおいて再度お試しください。'; }
+    });
+  })();</script>
+
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "767b80fb7bd44d918a84a10b31d9c934"}'></script><!-- End Cloudflare Web Analytics -->
+  <script>(function(){
+    var nav=document.querySelector('nav');
+    var toggle=document.querySelector('.nav-toggle');
+    var overlay=document.getElementById('navOverlay');
+    if(!nav||!toggle||!overlay) return;
+    function closeMenu(){ overlay.classList.remove('open'); toggle.classList.remove('open'); }
+    function openMenu(){ overlay.classList.add('open'); toggle.classList.add('open'); }
+    function onScroll(){ if(window.scrollY>60){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); closeMenu(); } }
+    toggle.addEventListener('click',function(){ overlay.classList.contains('open')?closeMenu():openMenu(); });
+    overlay.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeMenu); });
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  })();</script>
+</body>
+
+</html>

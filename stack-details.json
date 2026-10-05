@@ -1,0 +1,90 @@
+{
+  "rudan": {
+    "description": "福岡の小さなラウンジ。温かみのある素材と丁寧に調整されたプロポーションが、親密で洗練された雰囲気をつくり出す。会話と静けさが自然に生まれる、落ち着いた空間。",
+    "meta": {
+      "Year": "2018",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/rudan.html"
+  },
+  "soranomori": {
+    "description": "福岡県久留米市の不妊治療クリニック。訪れる方の心にそっと寄り添う優しさと力強さを空間に込めた。やわらかな光と素材が穏やかな安心感を生み、希望にそっと寄り添う場をつくる。",
+    "meta": {
+      "Year": "2022",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/soranomori.html"
+  },
+  "kamakiri": {
+    "description": "スペシャルティコーヒーショップ。石・鉄・木——シンプルで、時を経るほど強さを増す素材で構成する。コーヒーも、店も、ぶれずに続いていく。ほんもののコーヒーと、ほんものの素材のための空間。",
+    "meta": {
+      "Year": "2019",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/kamakiri.html"
+  },
+  "cltcabin": {
+    "description": "CLT（クロスラミネイテッドティンバー）による小屋。エンジニアリングウッドの構造的・美学的可能性を探る試みとして設計された。コンパクトで精緻な構成が、素材の誠実さから生まれる静かな温もりを体現する。",
+    "meta": {
+      "Year": "2022",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/cltcabin.html"
+  },
+  "inaba": {
+    "description": "地元に長く愛される老舗うどん店のロードサイド店舗。オリジナルの精神を受け継ぎながら、現代的な明快さをもたらす。建物の記憶と老舗の趣を丁寧に融合させ、次の時代へとつながる新しい店舗をかたちづくる。",
+    "meta": {
+      "Year": "2021",
+      "Location": "Meinohama, Fukuoka"
+    },
+    "source": "https://fdoa.jp/works/inaba.html"
+  },
+  "nrtei": {
+    "description": "年月を重ねた住宅のリノベーション。細かく仕切られた個室を取り払い、ひと続きの大きな空間へと再構成した。季節や暮らし方の変化に合わせて、自由に住まうことのできる住宅。",
+    "meta": {
+      "Year": "2019",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/nrtei.html"
+  },
+  "bebe": {
+    "description": "福岡のコンパクトなヘアーサロン。深いブルーの壁が大人っぽい落ち着いた雰囲気を生み、個人的でありながら静けさをたたえた空間をつくる。心地よく過ごせる場所。",
+    "meta": {
+      "Year": "2025",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/bebe.html"
+  },
+  "cave": {
+    "description": "福岡の中心部にあるラウンジ＆バー。レンガ・ウッド・レザー、そして深い影が、時間を緩やかにする。ゲストのための落ち着いた雰囲気を構成し、喧騒から切り離された静かな逃避場所をつくる。",
+    "meta": {
+      "Year": "2024",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/cave.html"
+  },
+  "kichan": {
+    "description": "個性が光るバーインテリア。薄桃色とグレーのトーンが、小さな空間にポップな遊び心と驚きを添える。「2階の黄ちゃん」という名前のとおり、地域に根ざした温もりが息づく。",
+    "meta": {
+      "Year": "2021",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/kichan.html"
+  },
+  "applied": {
+    "description": "プロフェッショナルのためのインテリア。製品と企業が培ってきた信頼性を、空間そのものへと翻訳する。規律ある明快な構造と、確かな素材使い。プロの要求に応える、精度と静かな緊張感を備えた環境。",
+    "meta": {
+      "Year": "2019",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/applied.html"
+  },
+  "weiss": {
+    "description": "WEISSのブランドアイデンティティとビジュアルコミュニケーション。手仕事のあたたかみと、寸分の狂いもない正確さ——その両立を、タイポグラフィとビジュアルへと落とし込んだ。",
+    "meta": {
+      "Year": "2018",
+      "Location": "Fukuoka, Japan"
+    },
+    "source": "https://fdoa.jp/works/weiss.html"
+  }
+}
