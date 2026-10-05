@@ -11,3 +11,9 @@ The complete site before this release is preserved by the remote annotated tag `
 To restore the prior homepage without discarding later history, restore `index.html` from that tag, commit the restore and push to `main`. For a complete restoration, first compare later changes against the tag and restore only the required paths. Never force-push the saved history away.
 
 All experimental pages remain in the original prototype folder. A separate complete local backup of all 86 prototype files was made before release, outside iCloud. Do not delete or replace those experiments when editing production.
+
+## 2026-10-05 one-page scroll navigation
+
+The homepage entry button is removed. Vertical wheel/swipe gestures select one adjacent sheet immediately; movement uses the existing distance-based acceleration and deceleration and lands at its boundary. Repeated wheel events in the same burst, including inertia, are consumed until movement has completed and the wheel input has been quiet. Touch gestures select at most one sheet. Modal galleries and the works dropdown retain native scrolling; pinch zoom and form input remain available. Keyboard navigation supports arrows, Page Up/Down, Space, Home and End. The release before this change remains at commit `82831e898cf1c0daa653521daf7bb7bd0e7fdfc2`.
+
+Browser checks cover discrete and continuous wheel inputs, keyboard input, exact landing positions, resize alignment, and independent modal scrolling. Deterministic handler tests cover touch gestures; the in-app browser does not support touch injection. Physical trackpad momentum and iPhone feel still need user confirmation; quiet-time separation is a heuristic because web wheel events do not expose finger release.
