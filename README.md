@@ -33,3 +33,9 @@ New consecutive gestures start their movement immediately, adding to the existin
 Wheel bursts now separate only after 180ms without wheel input, independently of animation completion. Every tail event extends the same burst; changing magnitude does not create a second gesture. Distinct bursts still overlap. The stage is the stable pointer target beneath the pictures, while only active sheet buttons receive clicks. This avoids changing the target beneath a stationary pointer as sheets move.
 
 Distance curves are cached, active control updates affect only the previous/current sheets, and animation painting uses one frame loop. Elapsed time is clamped to zero when a frame timestamp predates a newly added motion. The existing movement curves and touch behavior are retained. Physical trackpad gesture boundaries cannot be identified perfectly from wheel events; real-device feel remains subject to verification. The previous release is retained at `a08f1a088679d9a66bf1ccbecb89e07fbc56b8a8`.
+
+## 2026-10-20 HUIT project addition
+
+HUIT / ユイット (French restaurant, 2026) is added as the newest selected work, with six completed photographs in the stacked detail and `works/huit.html`. Existing work numbers, scrolling and modal behavior are retained; HUIT is work 12. The standalone project navigation and sitemap include the new page.
+
+Published JPEG derivatives preserve sRGB and the original aspect ratios. Gallery images are limited to a 3000px long edge (JPEG quality 88, progressive, 4:4:4); the separate first-image cover is 1600px (quality 85). Source photographs remain unchanged. Local verification covers desktop and mobile layouts, six-image loading, direct `/#huit` access, Works navigation, existing BEBE detail, standalone links and image enlargement.
