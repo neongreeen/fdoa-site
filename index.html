@@ -216,7 +216,7 @@ addEventListener('keydown',e=>{
   else travelTo(e.key==='Home'?0:(pages.length-1)*sheetHeight);
 });
 const worksToggle=document.querySelector('#works-toggle'),worksList=document.querySelector('#works-list');function closeWorks(focus=false){worksList.hidden=true;worksToggle.setAttribute('aria-expanded','false');if(focus)worksToggle.focus({preventScroll:true})}
-works.forEach(w=>{const i=pages.findIndex(p=>p[0]===w[0]);const b=document.createElement('button');b.innerHTML=`<span>${workNumber(w[0])}</span>${w[2]}`;b.dataset.sheet=i;b.onclick=()=>{closeWorks(true);travelTo(sheetHeight*i)};worksList.append(b)});
+works.forEach(w=>{const i=pages.findIndex(p=>p[0]===w[0]);const b=document.createElement('button');b.innerHTML=`<span>${workNumber(w[0])}</span>${w[0]==='huit'?w[1]:w[2]}`;b.dataset.sheet=i;b.onclick=()=>{closeWorks(true);travelTo(sheetHeight*i)};worksList.append(b)});
 worksToggle.onclick=()=>{const opening=worksList.hidden;if(opening)clearPendingInput();worksList.hidden=!opening;worksToggle.setAttribute('aria-expanded',String(opening));worksList.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',Number(b.dataset.sheet)===at));};document.addEventListener('click',e=>{if(!e.target.closest('.works-nav'))closeWorks()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!worksList.hidden){e.preventDefault();closeWorks(true)}});
 
 
